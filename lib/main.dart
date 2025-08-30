@@ -1,3 +1,4 @@
+import 'package:doctifityapp/utills/Themes.dart';
 import 'package:flutter/material.dart';
 import 'package:doctifityapp/View/AuthScreens/Selection_Screen.dart';
 
@@ -16,6 +17,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.light,
+      theme: AppThemes().lightTheme,
+      darkTheme: AppThemes().darkTheme,
       home: SelectionScreen(),
     );
   }

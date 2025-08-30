@@ -6,7 +6,13 @@ class AppThemes {
   final ThemeData lightTheme = ThemeData(
       brightness: Brightness.light,
       scaffoldBackgroundColor: Colors.white,
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+            backgroundColor: App_Colors.generalColor
+        ) ,
+      ) ,
       textTheme: TextTheme(
+
         titleMedium: TextStyle(color: Colors.black,fontSize: 50,fontFamily: 'Barbariska'),
         bodySmall: TextStyle(color: Colors.black,fontSize: 15, fontFamily: 'Akshar',) ,
         titleLarge:TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold,) ,
@@ -14,11 +20,7 @@ class AppThemes {
         labelSmall: TextStyle(color: Colors.black,fontSize: 15) ,
       ) ,
       iconTheme: IconThemeData(color: App_Colors.generalColor) ,
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-            backgroundColor: App_Colors.generalColor
-        ) ,
-      ) ,
+
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: Colors.white,
         selectedItemColor: Colors.black,

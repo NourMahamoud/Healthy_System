@@ -1,3 +1,5 @@
+import 'package:doctifityapp/View/AuthScreens/Patient/Sign_up_Screen.dart';
+import 'package:doctifityapp/utills/ColorCodes.dart';
 import 'package:doctifityapp/utills/ImagePath.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +14,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
           child:SingleChildScrollView(
@@ -48,7 +51,9 @@ class _SelectionScreenState extends State<SelectionScreen> {
                       child: Text('Access your medical records, book appointments, and manage prescriptions with ease.',style: Theme.of(context).textTheme.bodySmall,maxLines: 3,textAlign: TextAlign.center,),
 
                     ) ,
-                      ElevatedButton(onPressed: (){}, child:  Row(
+                      ElevatedButton(onPressed: (){
+                        Navigator.of(context).push(MaterialPageRoute(builder: (_)=> SignUpScreen()));
+                      }, child:  Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         spacing: 20,
                         children: [
@@ -98,8 +103,10 @@ class _SelectionScreenState extends State<SelectionScreen> {
 
                         ],
                       ),style: ElevatedButton.styleFrom(
+                        backgroundColor: App_Colors.generalColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
+
 
                         ),
                         fixedSize: Size(300, 50),
