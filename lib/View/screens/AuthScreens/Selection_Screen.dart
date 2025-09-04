@@ -19,7 +19,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset("${Image_path().logo}",width: 100,height: 100,),
+                  Image.asset(Image_path().logo,width: 100,height: 100,),
                   Text('Doctifity',style: Theme.of(context).textTheme.titleMedium,) ,
                 ],
               ) ,
@@ -48,7 +48,13 @@ class _SelectionScreenState extends State<SelectionScreen> {
                       child: Text('Access your medical records, book appointments, and manage prescriptions with ease.',style: Theme.of(context).textTheme.bodySmall,maxLines: 3,textAlign: TextAlign.center,),
 
                     ) ,
-                      ElevatedButton(onPressed: (){}, child:  Row(
+                      ElevatedButton(onPressed: (){},style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+
+                        ),
+                        fixedSize: Size(300, 50),
+                      ), child:  Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         spacing: 20,
                         children: [
@@ -56,12 +62,6 @@ class _SelectionScreenState extends State<SelectionScreen> {
                           Icon(Icons.arrow_forward,color: Colors.white,size: 20,),
 
                         ],
-                      ),style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-
-                        ),
-                        fixedSize: Size(300, 50),
                       ),) ,
                       SizedBox(height: 10,),
 
@@ -89,7 +89,13 @@ class _SelectionScreenState extends State<SelectionScreen> {
                       child: Text('Streamline patient management, collaborate with colleagues, and enhance your practice.',style: Theme.of(context).textTheme.bodySmall,maxLines: 2,textAlign: TextAlign.center,),
 
                     ) ,
-                      ElevatedButton(onPressed: (){}, child:  Row(
+                      ElevatedButton(onPressed: (){},style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+
+                        ),
+                        fixedSize: Size(300, 50),
+                      ), child:  Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         spacing: 20,
                         children: [
@@ -97,12 +103,6 @@ class _SelectionScreenState extends State<SelectionScreen> {
                           Icon(Icons.arrow_forward,color: Colors.white,size: 20,),
 
                         ],
-                      ),style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-
-                        ),
-                        fixedSize: Size(300, 50),
                       ),) ,
                       SizedBox(height: 10,),
 

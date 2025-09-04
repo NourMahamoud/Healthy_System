@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:doctifityapp/View/Introduction_Screens/OnBoarding_Screens.dart';
+import 'package:doctifityapp/View/screens/Introduction_Screens/OnBoarding_Screens.dart';
 import 'package:doctifityapp/utills/ImagePath.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

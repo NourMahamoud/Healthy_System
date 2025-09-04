@@ -4,6 +4,7 @@ class App_Colors {
   static  Color backgroundColorLogoImage_ligth =  Colors.black12;
   static Color backgroundColorLogoImage_dark =  Colors.white12 ;
   static Color generalColor =  Color(0xff004CFF) ;
+  static Color buttonColor =  Color.fromARGB(255, 60, 115, 243) ;
 
 
 }

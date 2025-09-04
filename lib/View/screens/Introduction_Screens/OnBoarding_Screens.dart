@@ -1,6 +1,10 @@
+import 'package:doctifityapp/View/screens/AuthScreens/Selection_Screen.dart';
+import 'package:doctifityapp/View/screens/main_screens/home_screen.dart';
 import 'package:doctifityapp/utills/ImagePath.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+
+import '../main_navigation.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});
@@ -53,37 +57,21 @@ class OnBoardingScreen extends StatelessWidget {
       ),
       next: Icon(Icons.arrow_forward, size: 25, color: Colors.blue[900]),
       done: Text(
-        "Done",
+        "Get Started",
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 16,
-          color: Colors.blue[900],
+          color: Colors.blue[700],
         ),
       ),
       onDone: () {
         // Navigate to home or login
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const HomeScreen()),
+          MaterialPageRoute(builder: (_) => const MainNavigation()),
         );
       },
     );
   }
 }
 
-// Dummy Home Screen for testing
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Doctify")),
-      body: Center(
-        child: Text(
-          "Dummy Home Screen for testing",
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
-    );
-  }
-}
