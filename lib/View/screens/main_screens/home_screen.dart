@@ -1,3 +1,5 @@
+import 'package:doctifityapp/View/screens/details_Screens/more_doctors.dart';
+import 'package:doctifityapp/View/screens/details_Screens/more_hospitals.dart';
 import 'package:doctifityapp/utills/ImagePath.dart';
 import 'package:doctifityapp/view_model/home_view_model.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +43,7 @@ class HomeScreen extends StatelessWidget {
                       /* 
                             user.address,
                             */
-                      "515 Al Waleed Bin Talal Street, Maadi",
+                      "11 Al Laithi ST El Sharabia",
                       style: const TextStyle(color: Colors.grey, fontSize: 12),
                     ),
                   ],
@@ -102,7 +104,11 @@ class HomeScreen extends StatelessWidget {
 
                 // Text Button Navigat to Doctors Page when we assgin as hospital
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => MoreDoctors()),
+                    );
+                  },
                   child: vm.doctors.length == 1
                       ? Text("")
                       : Text("more...", style: TextStyle(color: Colors.blue)),
@@ -176,7 +182,11 @@ class HomeScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => MoreHospitals()),
+                    );
+                  },
                   child: vm.hospitals.length == 1
                       ? Text("")
                       : Text("More...", style: TextStyle(color: Colors.blue)),
@@ -243,7 +253,7 @@ class HomeScreen extends StatelessWidget {
                                   ],
                                 ),
                                 Text(
-                                  "📍 ${hospital.location} • ${hospital.distance} km away",
+                                  "📍 ${hospital.location} ",
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Colors.grey,

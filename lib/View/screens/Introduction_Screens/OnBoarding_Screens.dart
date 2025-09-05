@@ -1,5 +1,3 @@
-import 'package:doctifityapp/View/screens/AuthScreens/Selection_Screen.dart';
-import 'package:doctifityapp/View/screens/main_screens/home_screen.dart';
 import 'package:doctifityapp/utills/ImagePath.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
@@ -12,7 +10,7 @@ class OnBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IntroductionScreen(
-      controlsPadding: EdgeInsets.only(bottom: 30),
+      controlsPadding: EdgeInsets.only(bottom: 50),
       curve: Curves.easeOutCubic,
       dotsDecorator: DotsDecorator(
         activeColors: [Colors.blue, Colors.blue, Colors.blue],
@@ -26,9 +24,8 @@ class OnBoardingScreen extends StatelessWidget {
             alignment: Alignment.center,
           ),
           decoration: const PageDecoration(
-            imagePadding: EdgeInsets.only(
-              top: 50,
-            ), // 👈 controls image position
+            contentMargin: EdgeInsets.only(top: 80),
+            imagePadding: EdgeInsets.only(top: 50),
           ),
         ),
         PageViewModel(
@@ -37,6 +34,7 @@ class OnBoardingScreen extends StatelessWidget {
               "Stay updated with your upcoming appointments and changes in one place.",
           image: Image.asset(Image_path().onBoarding_2),
           decoration: const PageDecoration(
+            contentMargin: EdgeInsets.only(top: 80),
             imagePadding: EdgeInsets.only(top: 50),
           ),
         ),
@@ -46,10 +44,12 @@ class OnBoardingScreen extends StatelessWidget {
               "Book, track, and manage your appointments anytime — with full safety and ease.",
           image: Image.asset(Image_path().onBoarding_3),
           decoration: const PageDecoration(
+            contentMargin: EdgeInsets.only(top: 80),
             imagePadding: EdgeInsets.only(top: 50),
           ),
         ),
       ],
+
       showSkipButton: true,
       skip: Text(
         "Skip",
@@ -73,5 +73,3 @@ class OnBoardingScreen extends StatelessWidget {
     );
   }
 }
-
-

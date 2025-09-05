@@ -26,7 +26,7 @@ class HomeViewModel with ChangeNotifier {
         age: '20',
         email: 'yossif@example',
         imageUrl: Image_path().doctor_headphone,
-        address: '515 Al Waleed Bin Talal Street, Maadi',
+        address: '11 Al Laithi ST El Sharabia',
       ),
       User(
         name: 'Ahmed',
@@ -76,20 +76,18 @@ class HomeViewModel with ChangeNotifier {
 
     _hospitals = [
       Hospital(
-        name: "El Nada Maternity Hospital",
-        rating: 4.6,
-        reviews: 180,
+        name: "El Maadi Hospital",
+        rating: 4.2,
+        reviews: 250,
         location: "Maadi",
-        distance: 2.8,
         imageUrl: Image_path().selection,
-        email: 'Elnada@example',
+        email: 'ElMaadi@example',
       ),
       Hospital(
         name: "El Nada Maternity Hospital",
         rating: 4.6,
         reviews: 180,
-        location: "Maadi",
-        distance: 2.8,
+        location: "515 Al Waleed Bin Talal Street, Maadi",
         imageUrl: Image_path().selection,
         email: 'Elnada@example',
       ),
