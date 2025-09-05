@@ -1,44 +1,34 @@
+import 'package:doctifityapp/ModelView/Auth/AuthProvider.dart';
+import 'package:doctifityapp/ModelView/Auth/SignUp_Provider.dart';
 import 'package:doctifityapp/utills/ColorCodes.dart';
 import 'package:doctifityapp/utills/ImagePath.dart';
+import 'package:doctifityapp/utills/ScreenSize.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class SignUpScreen extends StatefulWidget {
+class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (_) => SignUpProvider(),
+      child:  SignUp(),
+    );
+  }
 }
+class SignUp extends StatelessWidget {
+  SignUp({super.key});
 
-class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
-  late final TextEditingController emailController ;
-  late final TextEditingController nameController ;
-  late final TextEditingController passwordController ;
-  late final TextEditingController confirmPasswordController ;
-  bool _isObscurePassword= true;
-  bool _isObscureConfirmpassword= true;
-  bool val = false ;
-  @override
-  void initState() {
-    emailController = TextEditingController();
-    passwordController = TextEditingController();
-    nameController =  TextEditingController() ;
-    confirmPasswordController = TextEditingController() ;
-    super.initState();
-  }
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    nameController.dispose() ;
-    confirmPasswordController.dispose() ;
-  }
+
+
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
+
+    final auth = Provider.of<AuthFunctionProvider>(context);
+    final uiProvider = Provider.of<SignUpProvider>(context);
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -46,15 +36,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
             padding: const EdgeInsets.all(15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: height*0.016,
+              spacing: ScreenSize.height(context)*0.016,
               children: [
-                SizedBox(height: height*0.048),
+                SizedBox(height: ScreenSize.height(context)*0.048),
 
                 Center(
                   child: Image.asset(
                     Image_path().SignUp_image ,
-                    height: height*0.322,
-                    width: width*0.67,
+                    height: ScreenSize.height(context)*0.322,
+                    width: ScreenSize.width(context)*0.67,
                   ),
                 ),
 
@@ -63,13 +53,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   key: _formKey,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: Column(
-                    spacing: height*0.016,
+                    spacing: ScreenSize.height(context)*0.016,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Name '),
                       TextFormField(
                         obscureText: false,
-                        controller: nameController,
+                        controller: uiProvider.nameController,
                         validator: (val) {
                           if (val!.isEmpty){
                             return 'Please enter your Name';
@@ -91,7 +81,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       Text('Email Address'),
                       TextFormField(
                         obscureText: false,
-                        controller: emailController,
+                        controller: uiProvider.emailController,
                         validator: (val) {
                           if (val!.isEmpty){
                             return 'Please enter your email';
@@ -114,8 +104,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       Text('Password'),
                       TextFormField(
-                        controller: passwordController,
-                        obscureText: _isObscurePassword,
+                        controller: uiProvider.passwordController,
+                        obscureText: uiProvider.isObscurePassword,
 
                         validator: (val){
                           if (val!.isEmpty){
@@ -129,11 +119,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         },
                         decoration: InputDecoration(
                           label: Text('Password'),
-                          suffixIcon:IconButton(onPressed: (){
-                            setState(() {
-                              _isObscurePassword= !_isObscurePassword ;
-                            });
-                          }, icon: Icon(_isObscurePassword ? Icons.visibility :Icons.visibility_off,),) ,
+                          suffixIcon:IconButton(onPressed: uiProvider.toggleObscurePassword, icon: Icon(uiProvider.isObscureConfirmpassword ? Icons.visibility :Icons.visibility_off,),) ,
 
                           hintText: 'Enter your password',
                           border: OutlineInputBorder(
@@ -145,11 +131,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ), Text('Confirm Password'),
                       TextFormField(
-                        controller: confirmPasswordController,
-                        obscureText: _isObscureConfirmpassword,
+                        controller: uiProvider.confirmPasswordController,
+                        obscureText: uiProvider.isObscureConfirmpassword,
 
                         validator: (val){
-                          if (val! !=  passwordController.text){
+                          if (val! !=  uiProvider.passwordController.text){
                             return 'Confirm password and Password not  matching ';}
                           else {
                             return null ;
@@ -158,11 +144,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         },
                         decoration: InputDecoration(
                           label: Text('Confirm password'),
-                          suffixIcon:IconButton(onPressed: (){
-                            setState(() {
-                              _isObscureConfirmpassword= !_isObscureConfirmpassword ;
-                            });
-                          }, icon: Icon(_isObscureConfirmpassword ? Icons.visibility :Icons.visibility_off,),) ,
+                          suffixIcon:IconButton(onPressed : uiProvider.toggleObscureConfirmpassword, icon: Icon(uiProvider.isObscureConfirmpassword ? Icons.visibility :Icons.visibility_off,),) ,
 
                           hintText: 'Confirm Password Must be same password ',
                           border: OutlineInputBorder(
@@ -173,6 +155,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           // counter: TextButton(onPressed: (){}, child: Text('Forgot password?'))
                         ),
                       ),
+
                     ],
                   ),
                 ),
@@ -182,17 +165,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: MaterialButton(
                     onPressed: () async{
                       if (_formKey.currentState!.validate()) {
-                     //   await  Auth_Funcation().Sign_up(emailController.text, passwordController.text,nameController.text);
-                      }
-                     // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=> HomePage()));
-                    }
+                        auth.signUp(uiProvider.emailController.text, uiProvider.passwordController.text, uiProvider.nameController.text, context, auth.role);
+    }}
                     ,
                     color: App_Colors.generalColor,
                     child: Text(
                       'Sign up',
                       style: TextStyle(color: Colors.white),
                     ),
-                    minWidth: width * 0.75,
+                    minWidth: ScreenSize.width(context) * 0.75,
                   ),
                 ),
 
@@ -201,7 +182,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     children: [
                       Text('Already have an account?'),
                       TextButton(onPressed: () {
-                       // Navigator.of(context).push(MaterialPageRoute(builder: (_)=> Login()));
+                        auth.signUp(uiProvider.emailController.text, uiProvider.passwordController.text, uiProvider.nameController.text, context, 'Doctor') ;
                       }, child: Text('Sign in',style: TextStyle(color: App_Colors.generalColor,fontWeight: FontWeight.bold))) ])
               ],
             ),

@@ -1,10 +1,31 @@
-import 'package:doctifityapp/utills/Themes.dart';
-import 'package:flutter/material.dart';
+import 'package:doctifityapp/ModelView/Auth/AuthProvider.dart' show AuthProvider, AuthFunctionProvider;
+import 'package:doctifityapp/View/AuthScreens/Patient/Sign_up_Screen.dart';
 import 'package:doctifityapp/View/AuthScreens/Selection_Screen.dart';
+import 'package:doctifityapp/View/AuthScreens/Sign_In_Screen.dart';
+import 'package:doctifityapp/View/Intro_Screens/OnBoarding_Screens.dart';
+import 'package:doctifityapp/View/Intro_Screens/Splash_Screen.dart';
+import 'package:doctifityapp/utills/Themes.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp(
+    options: FirebaseOptions(
+      apiKey: 'AIzaSyBSo7EbFAclBPssaiEV7xuwYG31pPfh10E',
+      appId: '1:67330085138:android:0714197e5729ed5ec263cb',
+      messagingSenderId: '67330085138',
+      projectId: 'healthysystem-2f20b',
+    ),
+  );
+  runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthFunctionProvider()),
+      ],
+      child: const MyApp()));
 }
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -20,7 +41,16 @@ class _MyAppState extends State<MyApp> {
       themeMode: ThemeMode.light,
       theme: AppThemes().lightTheme,
       darkTheme: AppThemes().darkTheme,
-      home: SelectionScreen(),
+      home: SplashScreen(),
+      routes: {
+        '/selection': (context) => SelectionScreen(),
+        '/signup': (context) => SignUpScreen(),
+        '/login' : (context) => LoginPage() ,
+        // '/signup': (context) => SignUpScreen(),
+        //'/home': (context) => HomeScreen(),
+         '/onboarding': (context) => OnBoardingScreen(),
+      },
+
     );
   }
 }

@@ -119,11 +119,75 @@ class _SelectionScreenState extends State<SelectionScreen> {
 
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Card(
+
+                  color: Colors.white,
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    spacing: 15,
+                    children: [
+                      Image.asset(
+                        Image_path().hospital_building, // <-- replace with hospital image
+                        height: 120,
+                      ),
+                      Text(
+                        'Join as a Hospital',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Text(
+                          'Manage departments, connect with doctors, and improve healthcare services for patients.',
+                          style: Theme.of(context).textTheme.bodySmall,
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      ElevatedButton(
+
+                        onPressed: () {
+
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: App_Colors.generalColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          fixedSize: const Size(300, 50),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          spacing: 20,
+                          children: const [
+                            Text(
+                              'Join as Hospital',
+                              style: TextStyle(color: Colors.white, fontSize: 15),
+                            ),
+                            Icon(
+                              Icons.arrow_forward,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                    ],
+                  ),
+                ),
+              )
 
 
 
 
-              ],),
+            ],),
           ),
         ),
       ),
