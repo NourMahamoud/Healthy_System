@@ -1,4 +1,4 @@
-import 'package:doctifityapp/View/AuthScreens/Patient/Sign_up_Screen.dart';
+import 'package:doctifityapp/View/AuthScreens/Sign_up_Screen.dart';
 import 'package:doctifityapp/utills/ColorCodes.dart';
 import 'package:doctifityapp/utills/ImagePath.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset("${Image_path().logo}",width: 100,height: 100,),
+                  Image.asset(Image_path().logo,width: 100,height: 100,),
                   Text('Doctifity',style: Theme.of(context).textTheme.titleMedium,) ,
                 ],
               ) ,
@@ -53,7 +53,13 @@ class _SelectionScreenState extends State<SelectionScreen> {
                     ) ,
                       ElevatedButton(onPressed: (){
                         Navigator.of(context).push(MaterialPageRoute(builder: (_)=> SignUpScreen()));
-                      }, child:  Row(
+                      },style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+
+                        ),
+                        fixedSize: Size(300, 50),
+                      ), child:  Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         spacing: 20,
                         children: [
@@ -61,12 +67,6 @@ class _SelectionScreenState extends State<SelectionScreen> {
                           Icon(Icons.arrow_forward,color: Colors.white,size: 20,),
 
                         ],
-                      ),style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-
-                        ),
-                        fixedSize: Size(300, 50),
                       ),) ,
                       SizedBox(height: 10,),
 
@@ -94,15 +94,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                       child: Text('Streamline patient management, collaborate with colleagues, and enhance your practice.',style: Theme.of(context).textTheme.bodySmall,maxLines: 2,textAlign: TextAlign.center,),
 
                     ) ,
-                      ElevatedButton(onPressed: (){}, child:  Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        spacing: 20,
-                        children: [
-                          Text('Join as Professional',style: TextStyle(color: Colors.white,fontSize: 15)) ,
-                          Icon(Icons.arrow_forward,color: Colors.white,size: 20,),
-
-                        ],
-                      ),style: ElevatedButton.styleFrom(
+                      ElevatedButton(onPressed: (){},style: ElevatedButton.styleFrom(
                         backgroundColor: App_Colors.generalColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -110,6 +102,14 @@ class _SelectionScreenState extends State<SelectionScreen> {
 
                         ),
                         fixedSize: Size(300, 50),
+                      ), child:  Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        spacing: 20,
+                        children: [
+                          Text('Join as Professional',style: TextStyle(color: Colors.white,fontSize: 15)) ,
+                          Icon(Icons.arrow_forward,color: Colors.white,size: 20,),
+
+                        ],
                       ),) ,
                       SizedBox(height: 10,),
 

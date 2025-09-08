@@ -1,20 +1,22 @@
 import 'package:doctifityapp/Model/Repository/FireBaseFuncation/AuthFuncation.dart';
 import 'package:doctifityapp/View/AuthScreens/Sign_In_Screen.dart';
+import 'package:doctifityapp/View/CompleteAccount/CompleteAcountPage.dart';
 import 'package:doctifityapp/View/Intro_Screens/OnBoarding_Screens.dart';
 import 'package:doctifityapp/utills/Erorrs_handling/Handeling_Erorrs.dart';
 import 'package:doctifityapp/utills/SnackBar.dart';
 import 'package:flutter/material.dart';
 
 class AuthFunctionProvider extends ChangeNotifier {
-   String  role  = '' ;
-  void  signUp(String email, String password, String name,context, String role) async{
+   String  rule  = '' ;
+  void  signUp(String email, String password, String name,context) async{
    final  response = await  AuthFunction().signUp(email, password, name);
    response.fold((user) {
-       if (role == 'doctor'){
-         print('done') ;
+       if (rule != ''){
+         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=> CompleteAccountPage(rule: rule,name: name,email: email,)));
       }else {
+         ErrorHandler.handleAuthError(context, 'Pls Select Rule');
 
-       }
+         }
    } ,(error){
        ErrorHandler.handleAuthError(context, error);
    }) ;
@@ -40,7 +42,7 @@ class AuthFunctionProvider extends ChangeNotifier {
 
   }
   Future signOut(context) async{
-    final  response = await  AuthFunction().signOut;
+    final  response = AuthFunction().signOut;
     if (response == 'done'){
      CustomSnackBar.showSuccess(context, 'Signed out successfully');
      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=> LoginPage()));
@@ -50,19 +52,18 @@ class AuthFunctionProvider extends ChangeNotifier {
     }
   }
   Future sendEmailVer(context) async{
-    final  response = await  AuthFunction().sendEmailVerification;
+    final  response = AuthFunction().sendEmailVerification;
     if (response == 'done'){
       CustomSnackBar.showSuccess(context, 'Email verification sent successfully');
     }
     else {
       ErrorHandler.handleAuthError(context, response as String);
     }
-
-
   }
 
-  void  selectRole (String role){
-       this.role =  role ;
+  void  selectRole (String rule){
+       this.rule =  rule ;
+       notifyListeners();
   }
 
 

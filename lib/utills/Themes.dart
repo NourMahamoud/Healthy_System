@@ -12,10 +12,10 @@ class AppThemes {
         ) ,
       ) ,
       textTheme: TextTheme(
-
+        displayLarge:TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold,) ,
         titleMedium: TextStyle(color: Colors.black,fontSize: 50,fontFamily: 'Barbariska'),
         bodySmall: TextStyle(color: Colors.black,fontSize: 15, fontFamily: 'Akshar',) ,
-        titleLarge:TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold,) ,
+        titleLarge:TextStyle(color: Colors.black,fontSize: 25,fontFamily: 'Barbariska',) ,
         labelLarge: TextStyle(color: Colors.black,fontSize: 13) ,
         labelSmall: TextStyle(color: Colors.black,fontSize: 15) ,
       ) ,
@@ -40,9 +40,11 @@ class AppThemes {
       ) ,
       scaffoldBackgroundColor: Colors.black ,
       textTheme: TextTheme(
+        displayLarge:TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold,) ,
+
         titleMedium: TextStyle(color: Colors.white,fontSize: 50,fontFamily: 'Barbariska'),
         bodySmall: GoogleFonts.akshar(color: Colors.white,fontSize: 15,)  ,
-        titleLarge:TextStyle(color: Colors.white,fontSize: 25,fontWeight: FontWeight.bold,) ,
+        titleLarge:TextStyle(color: Colors.white,fontSize: 25,fontWeight: FontWeight.bold,fontFamily: 'Barbariska') ,
         labelLarge: TextStyle(color: Colors.white,fontSize: 13) ,
         labelSmall: TextStyle(color: Colors.white,fontSize:15 ) ,
 

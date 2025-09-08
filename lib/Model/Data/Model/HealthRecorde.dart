@@ -14,7 +14,7 @@ class HealthRecord {
   });
 
   // Convert to JSON (for Firebase/API)
-  Map<String, dynamic> toJson() => {
+   Map<String, dynamic> toJson() => {
     'condition': condition,
     'diagnosisDate': diagnosisDate.toIso8601String(),
     'treatment': treatment,

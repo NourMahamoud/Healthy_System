@@ -1,7 +1,5 @@
-import 'package:doctifityapp/Model/Repository/FireBaseFuncation/AuthFuncation.dart';
 import 'package:doctifityapp/ModelView/Auth/%D9%8DSignIN_provider.dart';
 import 'package:doctifityapp/utills/ColorCodes.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:doctifityapp/utills/ImagePath.dart';
 import 'package:flutter/material.dart';
@@ -26,8 +24,8 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final login = context.watch<SignInProvider>();
-    final auth = context.read<AuthFunctionProvider>() ;
+    final login = Provider.of<SignInProvider>(context);
+    final auth =Provider.of<AuthFunctionProvider>(context) ;
 
     return Scaffold(
 
@@ -149,11 +147,11 @@ class Login extends StatelessWidget {
                           }
                         },
                         color: App_Colors.generalColor,
+                        minWidth: ScreenSize.width(context) * 0.75,
                         child: Text(
                           'Log in',
                           style: TextStyle(color: Colors.white),
                         ),
-                        minWidth: ScreenSize.width(context) * 0.75,
                       );
                     }
                   ),

@@ -16,7 +16,45 @@ class Doctor extends User {
     required super.nationalId,
     required super.gender,
     required super.healthHistory,
+    required super.role,
+    required super.id,
+    required super.emergencyContact,
 
   }
   );
+  Map<String, dynamic> toJson() {
+    return {
+      'specialization': specialization,
+      'clinic_address': clinic_address,
+      'clinic_nunmber': clinic_nunmber,
+      'name': super.name,
+      'email': super.email,
+      'phoneNumber':super. phoneNumber,
+      'nationalId': super.nationalId,
+      'age': super.age,
+      'gender':super. gender,
+      'role': super.role,
+      'emergencyContact': super.emergencyContact,
+      'healthHistory': healthHistory.map((h) => h.toJson()).toList(),
+
+     } ;
+  }
+  factory Doctor.fromJson(Map<String, dynamic> json) {
+    return Doctor(
+      json['specialization'],
+      json['clinic_address'],
+      json['clinic_nunmber'],
+        age: json['age'],
+      name: json['name'],
+      email: json['email'],
+      phoneNumber: json['phoneNumber'],
+      nationalId: json['nationalId'],
+      gender: json['gender'],
+      healthHistory: json['healthHistory'],
+      role: json['role'],
+      id: json['id'],
+      emergencyContact: json['emergencyContact'] ) ;
+
+
+  }
 }

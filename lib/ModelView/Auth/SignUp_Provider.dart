@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SignUpProvider extends  ChangeNotifier {
-  final _formKey = GlobalKey<FormState>();
   late final TextEditingController emailController ;
   late final TextEditingController nameController ;
   late final TextEditingController passwordController ;
@@ -10,6 +9,8 @@ class SignUpProvider extends  ChangeNotifier {
   bool isObscurePassword= true;
   bool isObscureConfirmpassword= true;
   bool val = false ;
+  List <String> roles = ['Doctor' , 'Hospital' , 'Patient'] ;
+
   SignUpProvider(){
     emailController = TextEditingController();
     passwordController = TextEditingController();
@@ -17,6 +18,7 @@ class SignUpProvider extends  ChangeNotifier {
     confirmPasswordController = TextEditingController() ;
   }
 
+  @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
@@ -37,5 +39,7 @@ void  toggleObscureConfirmpassword(){
 void  toggleVal(){
     val = !val ;
 }
+
+
 
 }

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:doctifityapp/View/Intro_Screens/OnBoarding_Screens.dart';
 import 'package:doctifityapp/View/Intro_Screens/SplachScreenController.dart';
 import 'package:doctifityapp/utills/ImagePath.dart';
 import 'package:flutter/material.dart';

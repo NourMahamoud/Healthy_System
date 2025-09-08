@@ -8,6 +8,7 @@ class OnBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IntroductionScreen(
+      bodyPadding: EdgeInsets.all(29),
       controlsPadding: EdgeInsets.only(bottom: 30),
       curve: Curves.easeOutCubic,
       dotsDecorator: DotsDecorator(

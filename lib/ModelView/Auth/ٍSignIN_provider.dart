@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
 class SignInProvider extends ChangeNotifier {
-  final _formKey = GlobalKey<FormState>();
   late final TextEditingController emailController ;
   late final TextEditingController passwordController ;
   bool isObscure = true;
@@ -9,6 +8,7 @@ class SignInProvider extends ChangeNotifier {
     emailController = TextEditingController();
     passwordController = TextEditingController();
   }
+  @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();

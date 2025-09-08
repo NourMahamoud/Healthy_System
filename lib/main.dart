@@ -1,7 +1,8 @@
-import 'package:doctifityapp/ModelView/Auth/AuthProvider.dart' show AuthProvider, AuthFunctionProvider;
-import 'package:doctifityapp/View/AuthScreens/Patient/Sign_up_Screen.dart';
+import 'package:doctifityapp/ModelView/Auth/AuthProvider.dart';
 import 'package:doctifityapp/View/AuthScreens/Selection_Screen.dart';
 import 'package:doctifityapp/View/AuthScreens/Sign_In_Screen.dart';
+import 'package:doctifityapp/View/AuthScreens/Sign_up_Screen.dart';
+import 'package:doctifityapp/View/CompleteAccount/CompleteAcountPage.dart';
 import 'package:doctifityapp/View/Intro_Screens/OnBoarding_Screens.dart';
 import 'package:doctifityapp/View/Intro_Screens/Splash_Screen.dart';
 import 'package:doctifityapp/utills/Themes.dart';
