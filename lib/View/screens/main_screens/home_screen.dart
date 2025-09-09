@@ -1,3 +1,4 @@
+import 'package:doctifityapp/View/screens/details_Screens/details.dart';
 import 'package:doctifityapp/View/screens/details_Screens/more_doctors.dart';
 import 'package:doctifityapp/View/screens/details_Screens/more_hospitals.dart';
 import 'package:doctifityapp/utills/ImagePath.dart';
@@ -123,25 +124,43 @@ class HomeScreen extends StatelessWidget {
                 itemCount: vm.doctors.length,
                 itemBuilder: (context, index) {
                   final doctor = vm.doctors[index];
-                  return Container(
-                    width: 100,
-                    margin: EdgeInsets.only(right: 10),
-                    child: Column(
-                      children: [
-                        CircleAvatar(
-                          radius: 35,
-                          backgroundImage: AssetImage(doctor.imageUrl),
+                  return InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => Information(
+                            name: doctor.name,
+                            image: doctor.imageUrl,
+                            active: true,
+                            role: "doctor",
+                            address: doctor.address,
+                            email: doctor.email,
+                            phone: doctor.phone,
+                            specialty: doctor.specialty,
+                          ),
                         ),
-                        SizedBox(height: 5),
-                        Text(
-                          doctor.name,
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          doctor.specialty,
-                          style: TextStyle(color: Colors.grey, fontSize: 12),
-                        ),
-                      ],
+                      );
+                    },
+                    child: Container(
+                      width: 100,
+                      margin: EdgeInsets.only(right: 10),
+                      child: Column(
+                        children: [
+                          CircleAvatar(
+                            radius: 35,
+                            backgroundImage: AssetImage(doctor.imageUrl),
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            doctor.name,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            doctor.specialty,
+                            style: TextStyle(color: Colors.grey, fontSize: 12),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },
@@ -261,7 +280,22 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 SizedBox(height: 6),
                                 InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => Information(
+                                          name: hospital.name,
+                                          image: hospital.imageUrl,
+                                          active: true,
+                                          role: 'hospital',
+                                          location: hospital.location,
+                                          email: hospital.email,
+                                          rating: hospital.rating,
+                                          reviews: hospital.reviews,
+                                        ),
+                                      ),
+                                    );
+                                  },
                                   child: Container(
                                     alignment: Alignment.center,
                                     height: 35,

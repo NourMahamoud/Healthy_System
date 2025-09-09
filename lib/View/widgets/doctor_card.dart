@@ -1,3 +1,4 @@
+import 'package:doctifityapp/View/screens/details_Screens/details.dart';
 import 'package:flutter/material.dart';
 
 class DoctorCard extends StatelessWidget {
@@ -22,26 +23,22 @@ class DoctorCard extends StatelessWidget {
 
     return Card(
       elevation: 3,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
         padding: EdgeInsets.all(screenWidth * 0.03),
         child: Row(
           children: [
-           
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.asset(
                 image,
-                width: screenWidth * 0.15,  
+                width: screenWidth * 0.15,
                 height: screenWidth * 0.15,
                 fit: BoxFit.cover,
               ),
             ),
             SizedBox(width: screenWidth * 0.04),
 
-            
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,7 +47,7 @@ class DoctorCard extends StatelessWidget {
                     name,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: screenWidth * 0.05, 
+                      fontSize: screenWidth * 0.05,
                     ),
                   ),
                   Text(
@@ -60,17 +57,15 @@ class DoctorCard extends StatelessWidget {
                       fontSize: screenWidth * 0.04,
                     ),
                   ),
-
                 ],
               ),
             ),
 
-            
             IconButton(
               icon: Icon(
                 Icons.add_circle,
                 color: Colors.blue,
-                size: screenWidth * 0.09, 
+                size: screenWidth * 0.09,
               ),
               onPressed: onAdd ?? () {},
             ),

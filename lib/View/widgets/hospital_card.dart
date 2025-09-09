@@ -12,7 +12,7 @@ class HospitalCard extends StatelessWidget {
     super.key,
     required this.image,
     required this.name,
-     this.email,
+    this.email,
     required this.rating,
     required this.reviews,
     required this.location,
@@ -68,13 +68,15 @@ class HospitalCard extends StatelessWidget {
                     ),
                   ),
 
-                  email!=null ? Text(
-                    email!,
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: screenWidth * 0.04,
-                    ),
-                  ): Text("Email Not Found") 
+                  email != null
+                      ? Text(
+                          email!,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: screenWidth * 0.04,
+                          ),
+                        )
+                      : Text("Email Not Found"),
                 ],
               ),
             ),

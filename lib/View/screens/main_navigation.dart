@@ -24,12 +24,12 @@ class MainNavigation extends StatelessWidget {
     return Scaffold(
       body: AnimatedSwitcher(
         duration: const Duration(milliseconds: 700),
-        switchInCurve: Curves.easeInOut, // بدلتها
-        switchOutCurve: Curves.easeInOut, // بدلتها
+        switchInCurve: Curves.easeInOut, 
+        switchOutCurve: Curves.easeInOut, 
         transitionBuilder: (child, animation) {
           final fade = Tween<double>(begin: 0, end: 1).animate(animation);
           final scale = Tween<double>(begin: 0.8, end: 1.0).animate(
-            CurvedAnimation(parent: animation, curve: Curves.easeOut), // بدلتها
+            CurvedAnimation(parent: animation, curve: Curves.easeOut), 
           );
           final rotate = Tween<double>(begin: 0.1, end: 0).animate(animation);
           final slide = Tween<Offset>(
