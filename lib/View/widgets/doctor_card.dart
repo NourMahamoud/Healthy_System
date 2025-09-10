@@ -1,4 +1,3 @@
-import 'package:doctifityapp/View/screens/details_Screens/details.dart';
 import 'package:flutter/material.dart';
 
 class DoctorCard extends StatelessWidget {

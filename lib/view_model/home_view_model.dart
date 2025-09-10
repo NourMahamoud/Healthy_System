@@ -25,7 +25,7 @@ class HomeViewModel with ChangeNotifier {
         name: 'Yossif',
         age: '20',
         email: 'yossif@example',
-        imageUrl: Image_path().doctor_headphone,
+        imageUrl: Image_path().logo,
         address: '11 Al Laithi ST El Sharabia',
       ),
       User(
@@ -76,7 +76,8 @@ class HomeViewModel with ChangeNotifier {
         specialty: "Psychologist ",
         imageUrl: Image_path().doctor_headphone,
         email: 'mouhammed@example',
-        age: '40',phone: '01221966567',
+        age: '40',
+        phone: '01221966567',
         address: '515 Al Waleed Bin Talal Street, Maadi',
       ),
       Doctor(
@@ -98,7 +99,7 @@ class HomeViewModel with ChangeNotifier {
         location: "Maadi",
         imageUrl: Image_path().selection,
         email: 'ElMaadi@example',
-        phone: "01121966567"
+        phone: "01121966567",
       ),
       Hospital(
         name: "El Nada Maternity Hospital",
@@ -107,7 +108,7 @@ class HomeViewModel with ChangeNotifier {
         location: "515 Al Waleed Bin Talal Street, Maadi",
         imageUrl: Image_path().selection,
         email: 'Elnada@example',
-        phone: "01121966567"
+        phone: "01121966567",
       ),
     ];
 

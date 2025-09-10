@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 
 class MoreAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
+  final Widget title;
   final bool showBack;
   final List<Widget>? actions;
+  final Color? backGroundColor;
+  final Color? showBackColor;
 
   const MoreAppBar({
     super.key,
     required this.title,
     required this.showBack,
     this.actions,
+    this.backGroundColor,
+    this.showBackColor,
   });
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(title, style: TextStyle(color: Colors.black87 , fontSize: 20 , fontWeight: FontWeight.bold)),
+        backgroundColor: backGroundColor ?? Colors.white,
+        title: title, 
         centerTitle: false,
         elevation: 5,
         titleTextStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -25,7 +29,7 @@ class MoreAppBar extends StatelessWidget implements PreferredSizeWidget {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                icon: Icon(Icons.arrow_back),
+                icon: Icon(Icons.arrow_back , color: showBackColor,),
               )
             : null,
         actions: actions,

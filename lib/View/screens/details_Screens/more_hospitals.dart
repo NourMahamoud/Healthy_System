@@ -17,7 +17,7 @@ class _MoreHospitalsState extends State<MoreHospitals> {
   Widget build(BuildContext context) {
     final vm = context.watch<HomeViewModel>();
     return Scaffold(
-      appBar: MoreAppBar(title: 'Hospitals', showBack: true),
+      appBar: MoreAppBar(title: Text('Hospitals' , style: TextStyle(color: Colors.black , fontWeight: FontWeight.bold , fontSize: 20)), showBack: true),
       body: Column(
         children: [
           Padding(

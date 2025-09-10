@@ -37,7 +37,7 @@ class Information extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: MoreAppBar(title: "Details", showBack: true),
+      appBar: MoreAppBar(title: Text("Details" , style: TextStyle(color: Colors.black , fontWeight: FontWeight.bold , fontSize: 20)), showBack: true),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),

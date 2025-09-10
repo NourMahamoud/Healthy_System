@@ -1,4 +1,3 @@
-import 'package:doctifityapp/View/screens/Introduction_Screens/Splash_Screen.dart';
 import 'package:doctifityapp/View/screens/main_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +26,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: SplashScreen());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: // SplashScreen()
+          MainNavigation(),
+    );
   }
 }

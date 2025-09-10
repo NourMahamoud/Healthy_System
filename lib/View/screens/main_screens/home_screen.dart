@@ -1,11 +1,14 @@
 import 'package:doctifityapp/View/screens/details_Screens/details.dart';
 import 'package:doctifityapp/View/screens/details_Screens/more_doctors.dart';
 import 'package:doctifityapp/View/screens/details_Screens/more_hospitals.dart';
+import 'package:doctifityapp/View/screens/main_navigation.dart';
+import 'package:doctifityapp/View/screens/main_screens/notification_screen.dart';
 import 'package:doctifityapp/utills/ImagePath.dart';
 import 'package:doctifityapp/view_model/home_view_model.dart';
+import 'package:doctifityapp/view_model/navigation_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import '../../widgets/get_QRCode.dart';
 import '../../../utills/ColorCodes.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -20,37 +23,38 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         title: Consumer<HomeViewModel>(
           builder: (context, value, child) {
-            final user = value.user;
+            final user = vm.users.first;
             return
             // user checking
-            /*
             user == null
                 ? const Text("Loading...")
-                :
-                */
-            Row(
-              children: [
-                CircleAvatar(backgroundImage: AssetImage(Image_path().logo)),
-                const SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      // "${user.name} 👋",
-                      "yossif 👋",
-                      style: const TextStyle(color: Colors.black, fontSize: 18),
-                    ),
-                    Text(
-                      /* 
+                : Row(
+                    children: [
+                      CircleAvatar(backgroundImage: AssetImage(user.imageUrl)),
+                      const SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${user.name} 👋",
+
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                            ),
+                          ),
+                          Text(
                             user.address,
-                            */
-                      "11 Al Laithi ST El Sharabia",
-                      style: const TextStyle(color: Colors.grey, fontSize: 12),
-                    ),
-                  ],
-                ),
-              ],
-            );
+
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
           },
         ),
 
@@ -63,7 +67,9 @@ class HomeScreen extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    // Notification tapped
+                    Future.delayed(const Duration(milliseconds: 300), () {
+                      context.read<NavigationViewModel>().setIndex(2);
+                    });
                   },
                   child: const Icon(
                     Icons.notifications_none_outlined,
@@ -74,7 +80,11 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 6),
                 GestureDetector(
                   onTap: () {
-                    // Arrow tapped
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => QRScreen(userId: '1'),
+                      ),
+                    );
                   },
                   child: const Icon(
                     Icons.keyboard_arrow_down_sharp,
@@ -326,25 +336,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
-            label: "Appointments",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: "Notifications",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "My Account",
-          ),
-        ],
       ),
     );
   }
