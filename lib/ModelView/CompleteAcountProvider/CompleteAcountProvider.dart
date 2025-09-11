@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctifityapp/Model/Data/Model/DoctorModel.dart';
 import 'package:doctifityapp/Model/Data/Model/HealthRecorde.dart';
 import 'package:doctifityapp/Model/Repository/FireBaseFuncation/FireStoreFuncations.dart';
@@ -33,7 +34,6 @@ class CompleteAccountProvider extends ChangeNotifier {
 
   // Controllers for form fields
   late final TextEditingController yourPhoneNumber;
-  late final TextEditingController nationalId;
   late final TextEditingController emergencyPhoneNumber;
   late final TextEditingController age;
   late final TextEditingController specialization;
@@ -123,7 +123,6 @@ class CompleteAccountProvider extends ChangeNotifier {
     specialization = TextEditingController();
     clinicAddress = TextEditingController();
     clinicNumber = TextEditingController();
-    nationalId = TextEditingController();
     diagnosisDate = TextEditingController();
     treatmentController = TextEditingController();
     status = SearchController();
@@ -140,7 +139,6 @@ class CompleteAccountProvider extends ChangeNotifier {
     specialization.dispose();
     clinicAddress.dispose();
     clinicNumber.dispose();
-    nationalId.dispose();
     super.dispose();
   }
 
@@ -197,9 +195,14 @@ class CompleteAccountProvider extends ChangeNotifier {
   bool get smoke => _smoke;
 
   // Save account data (Doctor or Patient) with error handling
-  Future<void> saveData(context) async {
-    final response =  FireStoreFunction();
+  Future<void> saveData(BuildContext context) async {
+    final response = FireStoreFunction();
     try {
+      // Get existing data to preserve uploaded files
+      final docRef = FirebaseFirestore.instance.collection("users").doc(id);
+      final snapshot = await docRef.get();
+      final existingData = snapshot.data() ?? {};
+
       if (rule == 'Doctor') {
         // Create Doctor model
         Doctor doctor = Doctor(
@@ -210,15 +213,18 @@ class CompleteAccountProvider extends ChangeNotifier {
           name: name,
           email: email,
           phoneNumber: yourPhoneNumber.text,
-          nationalId: nationalId.text,
           gender: selectedGender!,
           healthHistory: _healthRecords,
           role: rule,
           id: id,
           emergencyContact: emergencyPhoneNumber.text,
+
+
+          nationalIdUrl: existingData["nationalIdUrl"],
+
         );
 
-        await response.addUser(doctor, context) ;
+        await response.addUser(doctor, context);
       } else if (rule == 'Patient') {
         // Create Patient (User) model
         User user = User(
@@ -229,19 +235,27 @@ class CompleteAccountProvider extends ChangeNotifier {
           gender: selectedGender!,
           healthHistory: _healthRecords,
           name: name,
-          nationalId: nationalId.text,
           phoneNumber: yourPhoneNumber.text,
           id: id,
+          // preserve uploaded files
+          nationalIdUrl: existingData["nationalIdUrl"],
+          medicalFiles: List<String>.from(existingData["medicalFiles"] ?? []),
         );
-        await response.addUser(user, context) ;
 
+        await response.addUser(user, context);
       }
 
-      CustomSnackBar.showSuccess(context, 'Data saved successfully');
+
     } catch (e) {
       CustomSnackBar.showError(context, 'Failed to save data: $e');
     }
   }
+
+
+
+
+
+
 
   // Setter for health records list
   set healthRecords(List<HealthRecord> value) {
@@ -306,4 +320,32 @@ class CompleteAccountProvider extends ChangeNotifier {
     _healthRecords.removeAt(index);
     notifyListeners();
   }
+
+  Future<void> updateNationalIdUrl(BuildContext context, String url) async {
+    try {
+      await FirebaseFirestore.instance.collection("users").doc(id).set({
+        "nationalIdUrl": url,
+      }, SetOptions(merge: true));
+
+      CustomSnackBar.showSuccess(context, "National ID uploaded successfully");
+    } catch (e) {
+      CustomSnackBar.showError(context, "Failed to update National ID: $e");
+    }
+  }
+
+
+  Future<void> addMedicalFile(BuildContext context, String url) async {
+    try {
+      await FirebaseFirestore.instance.collection("users").doc(id).set({
+        "medicalFiles": FieldValue.arrayUnion([url]),
+      }, SetOptions(merge: true));
+
+      CustomSnackBar.showSuccess(context, "Medical file added successfully");
+    } catch (e) {
+      CustomSnackBar.showError(context, "Failed to add medical file: $e");
+    }
+  }
+
+
+
 }

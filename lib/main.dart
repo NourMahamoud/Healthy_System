@@ -9,8 +9,9 @@ import 'package:doctifityapp/utills/Themes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp(
     options: FirebaseOptions(
@@ -19,6 +20,10 @@ void main() {
       messagingSenderId: '67330085138',
       projectId: 'healthysystem-2f20b',
     ),
+  );
+  await Supabase.initialize(
+    url: 'https://yfihruhoyrlgzcqgvyfo.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlmaWhydWhveXJsZ3pjcWd2eWZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc0Mjc5MjksImV4cCI6MjA3MzAwMzkyOX0.GgeUHDtIU1t07b8Vilsv3EcWjOMAmBCYd4QcEaX_K04',
   );
   runApp(MultiProvider(
       providers: [

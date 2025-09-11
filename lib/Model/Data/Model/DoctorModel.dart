@@ -1,60 +1,64 @@
 import 'package:doctifityapp/Model/Data/Model/UserModel.dart';
+import 'package:doctifityapp/Model/Data/Model/HealthRecorde.dart';
 
 class Doctor extends User {
   final String specialization;
-  final String clinic_address;
-  final String clinic_nunmber;
-  Doctor(
-    this.specialization,
-    this.clinic_address,
-    this.clinic_nunmber,
-  {
-    required super.age ,
-    required super.name,
-    required super.email,
-    required super.phoneNumber,
-    required super.nationalId,
-    required super.gender,
-    required super.healthHistory,
-    required super.role,
-    required super.id,
-    required super.emergencyContact,
+  final String clinicAddress;
+  final String clinicNumber;
 
-  }
-  );
+  Doctor(
+      this.specialization,
+      this.clinicAddress,
+      this.clinicNumber, {
+        required super.age,
+        required super.name,
+        required super.email,
+        required super.phoneNumber,
+        required super.nationalIdUrl,
+        required super.gender,
+        required super.healthHistory,
+        required super.role,
+        required super.id,
+        required super.emergencyContact,
+      }) : super(medicalFiles: const []);
+
+  @override
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
+      'name': name,
+      'email': email,
+      'phoneNumber': phoneNumber,
+      'nationalId': nationalIdUrl,
+      'age': age,
+      'gender': gender,
+      'role': role,
+      'emergencyContact': emergencyContact,
       'specialization': specialization,
-      'clinic_address': clinic_address,
-      'clinic_nunmber': clinic_nunmber,
-      'name': super.name,
-      'email': super.email,
-      'phoneNumber':super. phoneNumber,
-      'nationalId': super.nationalId,
-      'age': super.age,
-      'gender':super. gender,
-      'role': super.role,
-      'emergencyContact': super.emergencyContact,
+      'clinicAddress': clinicAddress,
+      'clinicNumber': clinicNumber,
       'healthHistory': healthHistory.map((h) => h.toJson()).toList(),
-
-     } ;
+      // 👇 deliberately not including "medicalFiles"
+    };
   }
+
   factory Doctor.fromJson(Map<String, dynamic> json) {
     return Doctor(
       json['specialization'],
-      json['clinic_address'],
-      json['clinic_nunmber'],
-        age: json['age'],
+      json['clinicAddress'],
+      json['clinicNumber'],
+      age: json['age'],
       name: json['name'],
       email: json['email'],
       phoneNumber: json['phoneNumber'],
-      nationalId: json['nationalId'],
       gender: json['gender'],
-      healthHistory: json['healthHistory'],
+      healthHistory: (json['healthHistory'] as List<dynamic>)
+          .map((e) => HealthRecord.fromJson(e))
+          .toList(),
       role: json['role'],
       id: json['id'],
-      emergencyContact: json['emergencyContact'] ) ;
-
-
+      emergencyContact: json['emergencyContact'],
+      nationalIdUrl: json['nationalId'],
+    );
   }
 }

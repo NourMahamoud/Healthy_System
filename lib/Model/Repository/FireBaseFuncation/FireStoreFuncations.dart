@@ -7,33 +7,31 @@ import 'package:flutter/cupertino.dart';
 
 class FireStoreFunction {
   CollectionReference users = FirebaseFirestore.instance.collection('users');
-  final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 
-  Future  addUser(User user,  context) async {
+  Future<void> addUser(User user, BuildContext context) async {
     try {
-      final response = await users.add(user.toJson());
+      // Use .doc(user.id) instead of .add() so we keep consistent IDs
+      await users.doc(user.id).set(user.toJson(), SetOptions(merge: true));
+
       CustomSnackBar.showSuccess(context, 'User added successfully');
       Navigator.pushReplacementNamed(context, '/home');
     } on FirebaseException catch (e) {
       ErrorHandler.handleFireStoreError(context, e.code);
-      }catch (e){
+    } catch (e) {
       ErrorHandler.handleFireStoreError(context, e.toString());
     }
-
   }
 
-   Future<Either<User, String>> getUserData (String id )async {
+  Future<Either<User, String>> getUserData(String id) async {
     try {
-      final response = await users.where('id' ,isEqualTo: id).get() ;
-         if (response.docs.isNotEmpty){
-           return Left(User.fromJson(response.docs.cast<Map<String, dynamic>>())) ;
-         }
-         else {
-           return Right('user not found') ;
-         }
-    }catch (e){
-         return Right(e.toString()) ;
+      final doc = await users.doc(id).get();
+      if (doc.exists && doc.data() != null) {
+        return Left(User.fromJson(doc.data() as Map<String, dynamic>));
+      } else {
+        return Right('User not found');
+      }
+    } catch (e) {
+      return Right(e.toString());
     }
-
-   }
+  }
 }
