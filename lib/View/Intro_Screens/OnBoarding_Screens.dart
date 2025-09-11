@@ -19,7 +19,7 @@ class OnBoardingScreen extends StatelessWidget {
           title: "Find top doctors",
           body: "Search and book appointments with top doctors near you.",
           image: Image.asset(
-            Image_path().onBoarding_1,
+            AppImages.onBoarding1,
             alignment: Alignment.center,
           ),
           decoration: const PageDecoration(
@@ -32,7 +32,7 @@ class OnBoardingScreen extends StatelessWidget {
           title: "Track your bookings",
           body:
               "Stay updated with your upcoming appointments and changes in one place.",
-          image: Image.asset(Image_path().onBoarding_2),
+          image: Image.asset(AppImages.onBoarding2),
           decoration: const PageDecoration(
             imagePadding: EdgeInsets.only(top: 50),
           ),
@@ -41,7 +41,7 @@ class OnBoardingScreen extends StatelessWidget {
           title: "Easily and safely with our app",
           body:
               "Book, track, and manage your appointments anytime — with full safety and ease.",
-          image: Image.asset(Image_path().onBoarding_3),
+          image: Image.asset(AppImages.onBoarding3),
           decoration: const PageDecoration(
             imagePadding: EdgeInsets.only(top: 50),
           ),
@@ -63,8 +63,7 @@ class OnBoardingScreen extends StatelessWidget {
       ),
       onDone: () {
         // Navigate to home or login
-       Navigator.of(context).pushReplacementNamed('/login' );
-
+        Navigator.of(context).pushReplacementNamed('/login');
       },
     );
   }

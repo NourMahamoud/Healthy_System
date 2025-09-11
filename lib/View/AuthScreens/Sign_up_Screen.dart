@@ -37,11 +37,10 @@ class SignUp extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               spacing: ScreenSize.height(context) * 0.016,
               children: [
-              //  SizedBox(height: ScreenSize.height(context) * 0.048),
-
+                //  SizedBox(height: ScreenSize.height(context) * 0.048),
                 Center(
                   child: Image.asset(
-                    Image_path().logo,
+                    AppImages.logo,
                     height: ScreenSize.height(context) * 0.322,
                     width: ScreenSize.width(context) * 0.67,
                   ),
@@ -165,23 +164,32 @@ class SignUp extends StatelessWidget {
                           // counter: TextButton(onPressed: (){}, child: Text('Forgot password?'))
                         ),
                       ),
-                    Text('Role',style: Theme.of(context).textTheme.titleLarge,),
+                      Text(
+                        'Role',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           for (var role in uiProvider.roles)
                             InkWell(
-                              onTap : (){
-                                auth.selectRole(role) ;
-                              }
-                           ,   child: ChoiceChip(
-                                label: Text(role,  style: TextStyle(fontSize: 20,color: role == auth.rule ? Colors.white : Colors.black),),
+                              onTap: () {
+                                auth.selectRole(role);
+                              },
+                              child: ChoiceChip(
+                                label: Text(
+                                  role,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: role == auth.rule
+                                        ? Colors.white
+                                        : Colors.black,
+                                  ),
+                                ),
                                 selected: role == auth.rule,
                                 selectedColor: App_Colors.generalColor,
                                 backgroundColor: Colors.white,
-
-
 
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15),
@@ -199,27 +207,27 @@ class SignUp extends StatelessWidget {
                     onPressed: auth.isLoading
                         ? null
                         : () async {
-                      if (_formKey.currentState!.validate() && auth.rule != '') {
-                         auth.signUp(
-                          uiProvider.emailController.text,
-                          uiProvider.passwordController.text,
-                          uiProvider.nameController.text,
-                          context,
-                        );
-                      } else if (auth.rule == '') {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Please select a role')),
-                        );
-                      }
-                    },
+                            if (_formKey.currentState!.validate() &&
+                                auth.rule != '') {
+                              auth.signUp(
+                                uiProvider.emailController.text,
+                                uiProvider.passwordController.text,
+                                uiProvider.nameController.text,
+                                context,
+                              );
+                            } else if (auth.rule == '') {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('Please select a role')),
+                              );
+                            }
+                          },
                     color: App_Colors.generalColor,
                     minWidth: ScreenSize.width(context) * 0.75,
-                    child:  Text(
+                    child: Text(
                       'Sign up',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
-
                 ),
 
                 Row(
@@ -228,7 +236,7 @@ class SignUp extends StatelessWidget {
                     Text('Already have an account?'),
                     TextButton(
                       onPressed: () {
-                        Navigator.of(context).pushReplacementNamed('/login') ;
+                        Navigator.of(context).pushReplacementNamed('/login');
                       },
                       child: Text(
                         'Sign in',

@@ -5,22 +5,26 @@ class Doctor extends User {
   final String specialization;
   final String clinicAddress;
   final String clinicNumber;
+  final String? availabilityStartTime;
+  final String? availabilityEndTime;
 
-  Doctor(
-      this.specialization,
-      this.clinicAddress,
-      this.clinicNumber, {
-        required super.age,
-        required super.name,
-        required super.email,
-        required super.phoneNumber,
-        required super.nationalIdUrl,
-        required super.gender,
-        required super.healthHistory,
-        required super.role,
-        required super.id,
-        required super.emergencyContact,
-      }) : super(medicalFiles: const []);
+  Doctor({
+    required this.specialization,
+    required this.clinicAddress,
+    required this.clinicNumber,
+    required super.age,
+    required super.name,
+    required super.email,
+    required super.phoneNumber,
+    required super.nationalIdUrl,
+    required super.gender,
+    required super.healthHistory,
+    required super.role,
+    required super.id,
+    required super.emergencyContact,
+    this.availabilityStartTime,
+    this.availabilityEndTime,
+  }) : super(medicalFiles: const []);
 
   @override
   Map<String, dynamic> toJson() {
@@ -37,16 +41,19 @@ class Doctor extends User {
       'specialization': specialization,
       'clinicAddress': clinicAddress,
       'clinicNumber': clinicNumber,
+      'availabilityStartTime': availabilityStartTime,
+      'availabilityEndTime': availabilityEndTime,
       'healthHistory': healthHistory.map((h) => h.toJson()).toList(),
-      // 👇 deliberately not including "medicalFiles"
     };
   }
 
   factory Doctor.fromJson(Map<String, dynamic> json) {
     return Doctor(
-      json['specialization'],
-      json['clinicAddress'],
-      json['clinicNumber'],
+      specialization: json['specialization'],
+      clinicAddress: json['clinicAddress'],
+      clinicNumber: json['clinicNumber'],
+      availabilityStartTime: json['availabilityStartTime'],
+      availabilityEndTime: json['availabilityEndTime'],
       age: json['age'],
       name: json['name'],
       email: json['email'],

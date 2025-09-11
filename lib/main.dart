@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'View/HomePageScreens/Home_page_screen.dart';
+import 'View/HomePageScreens/Specialists.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -63,6 +64,7 @@ class _MyAppState extends State<MyApp> {
         '/onboarding': (context) => OnBoardingScreen(),
         '/splash': (context) => SplashScreen(),
         '/homePage': (context) => HomePageScreen(),
+        '/specialists': (context) => Specialists(),
       },
     );
   }

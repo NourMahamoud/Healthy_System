@@ -43,8 +43,8 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds: 5), () {
-      SplachScreenController().checkUser(context) ;
-    } ) ;
+      SplachScreenController().checkUser(context);
+    });
     return Scaffold(
       body: AnimatedContainer(
         duration: const Duration(seconds: 3),
@@ -83,7 +83,7 @@ class _SplashScreenState extends State<SplashScreen>
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Image.asset(Image_path().logo, height: 120, width: 500),
+                      Image.asset(AppImages.logo, height: 120, width: 500),
                       const SizedBox(height: 16),
                       Text(
                         "Doctify",
