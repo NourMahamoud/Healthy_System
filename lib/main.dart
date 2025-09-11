@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'View/HomePageScreens/Home_page_screen.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp(
@@ -23,13 +25,17 @@ void main() async {
   );
   await Supabase.initialize(
     url: 'https://yfihruhoyrlgzcqgvyfo.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlmaWhydWhveXJsZ3pjcWd2eWZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc0Mjc5MjksImV4cCI6MjA3MzAwMzkyOX0.GgeUHDtIU1t07b8Vilsv3EcWjOMAmBCYd4QcEaX_K04',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlmaWhydWhveXJsZ3pjcWd2eWZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc0Mjc5MjksImV4cCI6MjA3MzAwMzkyOX0.GgeUHDtIU1t07b8Vilsv3EcWjOMAmBCYd4QcEaX_K04',
   );
-  runApp(MultiProvider(
+  runApp(
+    MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthFunctionProvider()),
       ],
-      child: const MyApp()));
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -51,12 +57,13 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/selection': (context) => SelectionScreen(),
         '/signup': (context) => SignUpScreen(),
-        '/login' : (context) => LoginPage() ,
+        '/login': (context) => LoginPage(),
         // '/signup': (context) => SignUpScreen(),
         '/home': (context) => HomeScreen(),
-         '/onboarding': (context) => OnBoardingScreen(),
+        '/onboarding': (context) => OnBoardingScreen(),
+        '/splash': (context) => SplashScreen(),
+        '/homePage': (context) => HomePageScreen(),
       },
-
     );
   }
 }
