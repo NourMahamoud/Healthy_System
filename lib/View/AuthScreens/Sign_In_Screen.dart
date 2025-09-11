@@ -164,7 +164,7 @@ class Login extends StatelessWidget {
                       Consumer(
                         builder: (context,pro,child ) {
                           return TextButton(onPressed: (){
-                            Navigator.of(context).pushNamed('/signup');
+                            Navigator.of(context).pushReplacementNamed('/signup');
                           }, child: Text('Sign up',style: TextStyle(color: App_Colors.generalColor,fontWeight: FontWeight.bold)));
                         }
                       ) ])

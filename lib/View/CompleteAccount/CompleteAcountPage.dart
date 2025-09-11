@@ -1,36 +1,34 @@
-import 'package:doctifityapp/ModelView/Auth/CompleteAcountProvider.dart';
+import 'package:doctifityapp/ModelView/CompleteAcountProvider/CompleteAcountProvider.dart';
 import 'package:doctifityapp/utills/ColorCodes.dart';
 import 'package:doctifityapp/utills/CostoumWegiet/CoustumeChioce.dart';
-import 'package:doctifityapp/utills/CostoumWegiet/TextFormFiled.dart';
+import 'package:doctifityapp/utills/CostoumWegiet/CustomTextFormField.dart';
 import 'package:doctifityapp/utills/ScreenSize.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:provider/provider.dart';
 
 class CompleteAccountPage extends StatelessWidget {
-   CompleteAccountPage({super.key, required this.rule, required this.email, required this.name});
+   CompleteAccountPage({super.key, required this.rule, required this.email, required this.name, required this.id,});
 
     final  String  rule ;
     final String email ;
     final String name ;
+    final String id ;
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => CompleteAccountProvider(rule: rule, email: email, name: name),
+      create: (_) => CompleteAccountProvider(rule: rule, email: email, name: name, id:id ),
       child: const CompleteacountPage(),
     );
   }
 }
-
 class CompleteacountPage extends StatelessWidget {
   const CompleteacountPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<CompleteAccountProvider>(context);
     final screenWidth = ScreenSize.width(context);
     final screenHeight = ScreenSize.height(context);
-
     return Scaffold(
       backgroundColor: App_Colors.offWhite,
       body: SafeArea(
@@ -64,21 +62,24 @@ class CompleteacountPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Column(
-                      spacing: screenHeight * 0.02,
+                      spacing: screenHeight * 0.04,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Center(child: Text('Doctor Information' ,style: Theme.of(context).textTheme.titleLarge,)),
                         SizedBox(height: screenHeight * 0.02),
                         Text('your Specialization',style: Theme.of(context).textTheme.displayLarge,),
-                        CostumTextformfiled (backgroundColor: App_Colors.offWhite,controller: provider.specialization, hintText:'Specialization' ,labelText: 'Input your Specialization',),
+                        CustomTextFormField (backgroundColor: App_Colors.offWhite,controller: provider.specialization, hintText:'Specialization' ,labelText: 'Input your Specialization',validator: (s){
+                          s!.isEmpty ? 'Please Enter Your Specialization'  : null;
+                        },),
                         SizedBox(height: screenHeight * 0.02),
                         Text('Clinic Address',style: Theme.of(context).textTheme.displayLarge,),
-                        CostumTextformfiled (backgroundColor: App_Colors.offWhite,controller: provider.clinicAddress, hintText:'Clinic Address' ,labelText: 'Input your Clinic Address',),
+                        CustomTextFormField (backgroundColor: App_Colors.offWhite,controller: provider.clinicAddress, hintText:'Clinic Address' ,labelText: 'Input your Clinic Address',validator: (val)=>val!.isEmpty ? 'Please Enter Your Clinic Address' : null ,),
                         SizedBox(height: screenHeight * 0.02),
                         Text('Clinic Number',style: Theme.of(context).textTheme.displayLarge,),
                         SizedBox(
                           width: screenWidth * 0.8,
                           child: InternationalPhoneNumberInput(
+                            validator: (val)=> val!.isEmpty ? 'Please Enter Your Clinic Number' : null ,
                             textFieldController: provider.clinicNumber,
                             onInputChanged: (PhoneNumber number) {},
                             initialValue:  PhoneNumber(isoCode: 'EG'),
@@ -97,14 +98,10 @@ class CompleteacountPage extends StatelessWidget {
                           ),
                         ),
 
-
-
-
                       ],
                     ),
 
                   ) ),
-
                   Container(
                     alignment: Alignment.topLeft,
                     padding: EdgeInsets.all(screenWidth * 0.05),
@@ -122,7 +119,7 @@ class CompleteacountPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Column(
-                      spacing: screenHeight * 0.02,
+                      spacing: screenHeight * 0.04,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Center(child: Text('Personal Information',style: Theme.of(context).textTheme.titleLarge,),) ,
@@ -131,6 +128,8 @@ class CompleteacountPage extends StatelessWidget {
                           'Enter Your National Id',
                           style: Theme.of(context).textTheme.displayLarge,
                         ),
+                        SizedBox(height: screenHeight *0.02,),
+                        CustomTextFormField (backgroundColor: App_Colors.offWhite,controller: provider.nationalId, hintText:'National Id' ,labelText: 'Input your National Id',validator: (val)=>val!.isEmpty ? 'Please Enter Your National Id' : null ,),
                         Text(
                           'Enter Your Phone Number',
                           style: Theme.of(context).textTheme.displayLarge,
@@ -138,11 +137,9 @@ class CompleteacountPage extends StatelessWidget {
                         SizedBox(
                           width: screenWidth * 0.8,
                           child: InternationalPhoneNumberInput(
+                            validator: (val)=> val!.isEmpty ? 'Please Enter Your Phone Number' : null ,
                             textFieldController: provider.yourPhoneNumber,
                             onInputChanged: (PhoneNumber number) {},
-                            onInputValidated: (bool value) {
-                              print(value);
-                            },
                             initialValue:  PhoneNumber(isoCode: 'EG'),
                             inputDecoration: InputDecoration(
                               fillColor: App_Colors.offWhite,
@@ -189,22 +186,8 @@ class CompleteacountPage extends StatelessWidget {
                           'Age ',
                           style: Theme.of(context).textTheme.displayLarge,
                         ),
-                        SizedBox(
-                          width: screenWidth * 0.8,
-                          child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            style: Theme.of(context).textTheme.bodySmall,
-                            decoration: InputDecoration(
-                              fillColor: App_Colors.offWhite,
-                              filled: true,
-                              labelText: 'Age',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide:  BorderSide(color: App_Colors.offWhite),
-                              ),
-                            ),
-                          ),
-                        ),
+                        CustomTextFormField (backgroundColor: App_Colors.offWhite,controller: provider.age, hintText:'Age' ,labelText: 'Input your Age',validator: (val)=>val!.isEmpty ? 'Please Enter Your Age' : null ,keyboardType: TextInputType.number,),
+
                         Text(
                           'Gender ',
                           style: Theme.of(context).textTheme.displayLarge,
@@ -238,7 +221,7 @@ class CompleteacountPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: screenHeight * 0.02),
+                  SizedBox(height: screenHeight * 0.04),
                   Container(
                     padding: EdgeInsets.all(screenWidth * 0.05),
                     width: screenWidth *0.9 ,
@@ -308,7 +291,6 @@ class CompleteacountPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: screenHeight * 0.02),
                         Text(
                           'Allergies',
                           style: Theme.of(context).textTheme.displayLarge,
@@ -350,85 +332,36 @@ class CompleteacountPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: screenHeight * 0.02),
-
-                        ChooseAndWrite(
-                          hint: 'Name of Surgery',
-                          label: 'Surgery',
-                          answerController: provider.nameofSurgery,
-                          isTrue: provider.doSurgery,
-                          question: 'you do any surgery before ?',
-                          onChanged: (val) {
-                            provider.doSurgery = val;
-                            provider.addHealthRecord(context) ;
-                          },
-                        ),
-                        SizedBox(height: screenHeight * 0.02),
-
-                        ChooseAndWrite(
-                          hint: 'Name of chronic disease',
-                          label: 'chronic disease',
-                          answerController: provider.chronicDisease,
-                          isTrue: provider.haveChronicDisease,
-                          question: 'You have any chronic disease',
-                          onChanged: (val) {
-                            provider.haveChronicDisease = val;
-                          },
-                        ),
-                        SizedBox(height: screenHeight * 0.02),
-
-                        ChooseAndWrite(
-                          hint: 'the reason',
-                          label: 'the reason',
-                          answerController: provider.reasonOfAdmitted,
-                          isTrue: provider.AdmittedBefore,
-                          question: 'Have you been admitted to a hospital before?',
-                          onChanged: (val) {
-                            provider.AdmittedBefore = val;
-                          },
-                        ),
-                        SizedBox(height: screenHeight * 0.02),
-
-                        ChooseAndWrite(
-                          hint: 'Date',
-                          label: 'Date',
-                          answerController: provider.dateOfBloodTrans,
-                          isTrue: provider.BloodTransBefore,
-                          question: 'Have you had a blood transfusion before?',
-                          onChanged: (val) {
-                            provider.BloodTransBefore = val;
-                          },
-                        ),
-                        SizedBox(height: screenHeight * 0.02),
-
-                        ChooseAndWrite(
-                          hint: 'Type name of virus',
-                          label: 'Type name of virus',
-                          answerController: provider.virusName,
-                          isTrue: provider.haveVirus,
-                          question: 'Do you have hepatitis C or B virus?',
-                          onChanged: (val) {
-                            provider.haveVirus = val;
-                          },
-                        ),
-                        SizedBox(height: screenHeight * 0.02),
-
-                        ChooseAndWrite(
-                          hint: 'Date',
-                          label: 'Date',
-                          answerController: provider.smokeDate,
-                          isTrue: provider.smoke,
-                          question: 'you Smoker?',
-                          onChanged: (v) {
-                            provider.smoke = v;
-                            provider.addHealthRecord(context) ;
-                          },
-                        ),
-                        SizedBox(height: screenHeight * 0.02),
+                        ChooseAndWrite(question: 'you do any surgery before ?', value: provider.doSurgery, onChanged: (val){
+                          val ? provider.addHealthRecord(context) : null ;
+                          provider.doSurgery =!provider.doSurgery ;
+                        }) ,
+                        ChooseAndWrite(question: 'You have any chronic disease', value: provider.haveChronicDisease, onChanged: (val){
+                          val ? provider.addHealthRecord(context) : null ;
+                          provider.haveChronicDisease =!provider.haveChronicDisease ;
+                        }) ,
+                        ChooseAndWrite(question: 'Have you been admitted to a hospital before?', value: provider.AdmittedBefore, onChanged: (val){
+                          val ? provider.addHealthRecord(context) : null ;
+                            provider.AdmittedBefore=!provider.AdmittedBefore ;
+                        })  ,
+                        ChooseAndWrite(question: 'Have you had a blood transfusion before?', value: provider.BloodTransBefore, onChanged: (val){
+                          val ? provider.addHealthRecord(context) : null ;
+                          provider.BloodTransBefore=!provider.BloodTransBefore ;
+                        }),
+                        ChooseAndWrite(question: 'Do you have hepatitis C or B virus?', value: provider.haveVirus, onChanged: (val){
+                          val ? provider.addHealthRecord(context) : null ;
+                          provider.haveVirus=!provider.haveVirus ;
+                        }),
+                        ChooseAndWrite(question: 'you Smoker?', value: provider.smoke, onChanged: (val){
+                          val ? provider.addHealthRecord(context) : null ;
+                          provider.smoke=!provider.smoke ;
+                        }),
                       ],
                     ),
                   ),
-                  ElevatedButton(onPressed: (){},style: ElevatedButton.styleFrom(
+                  ElevatedButton(onPressed: (){
+                    provider.saveData(context);
+                  },style: ElevatedButton.styleFrom(
                     backgroundColor: App_Colors.generalColor,
                     foregroundColor: App_Colors.offWhite,
                     elevation: 0,

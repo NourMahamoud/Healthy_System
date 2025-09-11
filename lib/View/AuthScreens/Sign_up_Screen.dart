@@ -196,23 +196,30 @@ class SignUp extends StatelessWidget {
 
                 Center(
                   child: MaterialButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()&&auth.rule != '') {
-                        auth.signUp(
+                    onPressed: auth.isLoading
+                        ? null
+                        : () async {
+                      if (_formKey.currentState!.validate() && auth.rule != '') {
+                         auth.signUp(
                           uiProvider.emailController.text,
                           uiProvider.passwordController.text,
                           uiProvider.nameController.text,
                           context,
                         );
+                      } else if (auth.rule == '') {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Please select a role')),
+                        );
                       }
                     },
                     color: App_Colors.generalColor,
                     minWidth: ScreenSize.width(context) * 0.75,
-                    child: Text(
+                    child:  Text(
                       'Sign up',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
+
                 ),
 
                 Row(

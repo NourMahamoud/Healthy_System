@@ -76,6 +76,7 @@ class AuthFunction {
     try{
       await user?.sendEmailVerification();
       return 'done' ;
+
     }catch (e){
       return e.toString() ;
     }

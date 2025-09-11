@@ -36,6 +36,7 @@ class User {
   'role': role,
   'emergencyContact': emergencyContact,
   'healthHistory': healthHistory.map((h) => h.toJson()).toList(),
+  'id': id,
  };
 
  factory User.fromJson(List <Map<String, dynamic>> json) => User(

@@ -11,6 +11,7 @@ class SignUpProvider extends  ChangeNotifier {
   bool val = false ;
   List <String> roles = ['Doctor' , 'Hospital' , 'Patient'] ;
 
+
   SignUpProvider(){
     emailController = TextEditingController();
     passwordController = TextEditingController();

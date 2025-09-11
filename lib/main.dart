@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
         '/signup': (context) => SignUpScreen(),
         '/login' : (context) => LoginPage() ,
         // '/signup': (context) => SignUpScreen(),
-        //'/home': (context) => HomeScreen(),
+        '/home': (context) => HomeScreen(),
          '/onboarding': (context) => OnBoardingScreen(),
       },
 

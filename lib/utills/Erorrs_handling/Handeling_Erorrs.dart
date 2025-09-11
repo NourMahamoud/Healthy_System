@@ -10,7 +10,6 @@ class ErrorHandler {
 
     _logger.e('Auth Error: $errorCode - $message');
     CustomSnackBar.showError(context, message);
-
   }
   static String _getAuthErrorMessage(String errorCode) {
     switch (errorCode) {
@@ -27,6 +26,28 @@ class ErrorHandler {
       default:
         return 'An unexpected error occurred: $errorCode';
     }
+  }
+
+  static void handleFireStoreError(BuildContext context, String errorCode) {
+    final message = _getFireStoreErrorMessage(errorCode);
+    _logger.e('FireStore Error: $errorCode - $message') ;
+    CustomSnackBar.showError(context, _getFireStoreErrorMessage(errorCode));
+
+  }
+  static String _getFireStoreErrorMessage(String errorCode) {
+    switch (errorCode) {
+      case 'permission-denied':
+      return  'You don’t have permission to add data.';
+      case 'unavailable':
+         return 'Firestore service is currently unavailable. Try again later.';
+        ;
+      case 'invalid-argument':
+         return  'Invalid data format.';
+        ;
+      default:
+        return 'An unexpected Firestore error occurred: ${errorCode}';
+    }
+
   }
 
 }
