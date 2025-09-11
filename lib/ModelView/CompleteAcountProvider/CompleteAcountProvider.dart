@@ -203,21 +203,23 @@ class CompleteAccountProvider extends ChangeNotifier {
       final snapshot = await docRef.get();
       final existingData = snapshot.data() ?? {};
 
-      Doctor doctor = Doctor(
-        specialization: specialization.text,
-        clinicAddress: clinicAddress.text,
-        clinicNumber: clinicNumber.text,
-        age: int.parse(age.text),
-        name: name,
-        email: email,
-        phoneNumber: yourPhoneNumber.text,
-        gender: selectedGender!,
-        healthHistory: _healthRecords,
-        role: rule,
-        id: id,
-        emergencyContact: emergencyPhoneNumber.text,
-        nationalIdUrl: existingData["nationalIdUrl"],
-      );
+      if (rule == 'Doctor') {
+        // Create Doctor model
+        Doctor doctor = Doctor(
+          specialization: specialization.text,
+          clinicAddress: clinicAddress.text,
+          clinicNumber: clinicNumber.text,
+          age: int.parse(age.text),
+          name: name,
+          email: email,
+          phoneNumber: yourPhoneNumber.text,
+          gender: selectedGender!,
+          healthHistory: _healthRecords,
+          role: rule,
+          id: id,
+          emergencyContact: emergencyPhoneNumber.text,
+          nationalIdUrl: existingData["nationalIdUrl"],
+        );
 
         await response.addUser(doctor, context);
       } else if (rule == 'Patient') {
@@ -239,18 +241,10 @@ class CompleteAccountProvider extends ChangeNotifier {
 
         await response.addUser(user, context);
       }
-
-
     } catch (e) {
       CustomSnackBar.showError(context, 'Failed to save data: $e');
     }
   }
-
-
-
-
-
-
 
   // Setter for health records list
   set healthRecords(List<HealthRecord> value) {
@@ -328,7 +322,6 @@ class CompleteAccountProvider extends ChangeNotifier {
     }
   }
 
-
   Future<void> addMedicalFile(BuildContext context, String url) async {
     try {
       await FirebaseFirestore.instance.collection("users").doc(id).set({
@@ -340,7 +333,4 @@ class CompleteAccountProvider extends ChangeNotifier {
       CustomSnackBar.showError(context, "Failed to add medical file: $e");
     }
   }
-
-
-
 }
