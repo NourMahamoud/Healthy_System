@@ -203,26 +203,21 @@ class CompleteAccountProvider extends ChangeNotifier {
       final snapshot = await docRef.get();
       final existingData = snapshot.data() ?? {};
 
-      if (rule == 'Doctor') {
-        // Create Doctor model
-        Doctor doctor = Doctor(
-          specialization.text,
-          clinicAddress.text,
-          clinicNumber.text,
-          age: int.parse(age.text),
-          name: name,
-          email: email,
-          phoneNumber: yourPhoneNumber.text,
-          gender: selectedGender!,
-          healthHistory: _healthRecords,
-          role: rule,
-          id: id,
-          emergencyContact: emergencyPhoneNumber.text,
-
-
-          nationalIdUrl: existingData["nationalIdUrl"],
-
-        );
+      Doctor doctor = Doctor(
+        specialization: specialization.text,
+        clinicAddress: clinicAddress.text,
+        clinicNumber: clinicNumber.text,
+        age: int.parse(age.text),
+        name: name,
+        email: email,
+        phoneNumber: yourPhoneNumber.text,
+        gender: selectedGender!,
+        healthHistory: _healthRecords,
+        role: rule,
+        id: id,
+        emergencyContact: emergencyPhoneNumber.text,
+        nationalIdUrl: existingData["nationalIdUrl"],
+      );
 
         await response.addUser(doctor, context);
       } else if (rule == 'Patient') {
