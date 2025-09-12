@@ -12,9 +12,9 @@ class AppImages {
 
   // 🔹 Doctors
   static const String doctorHeadphone = 'assets/images/doctor_headphone.png';
-  static const String doctor1 = 'assets/images/doctor1.png';
-  static const String doctor2 = 'assets/images/doctor2.png';
-  static const String doctor3 = 'assets/images/doctor3.png';
+  static const String doctor1 = 'assets/images/Doctor1.png';
+  static const String doctor2 = 'assets/images/Doctor2.png';
+  static const String doctor3 = 'assets/images/Doctor3.png';
 
   // 🔹 Hospitals
   static const String hospitalBuilding = 'assets/images/hospital_building.jpg';

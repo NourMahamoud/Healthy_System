@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
       themeMode: ThemeMode.light,
       theme: AppThemes().lightTheme,
       darkTheme: AppThemes().darkTheme,
-      home: SplashScreen(),
+      home: Specialists(),
       routes: {
         '/selection': (context) => SelectionScreen(),
         '/signup': (context) => SignUpScreen(),
