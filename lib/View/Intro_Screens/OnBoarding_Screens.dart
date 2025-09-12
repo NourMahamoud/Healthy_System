@@ -8,8 +8,7 @@ class OnBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IntroductionScreen(
-      bodyPadding: EdgeInsets.all(29),
-      controlsPadding: EdgeInsets.only(bottom: 30),
+      controlsPadding: EdgeInsets.only(bottom: 50),
       curve: Curves.easeOutCubic,
       dotsDecorator: DotsDecorator(
         activeColors: [Colors.blue, Colors.blue, Colors.blue],
@@ -23,30 +22,32 @@ class OnBoardingScreen extends StatelessWidget {
             alignment: Alignment.center,
           ),
           decoration: const PageDecoration(
-            imagePadding: EdgeInsets.only(
-              top: 50,
-            ), // 👈 controls image position
+            contentMargin: EdgeInsets.only(top: 80),
+            imagePadding: EdgeInsets.only(top: 50),
           ),
         ),
         PageViewModel(
           title: "Track your bookings",
           body:
-              "Stay updated with your upcoming appointments and changes in one place.",
+          "Stay updated with your upcoming appointments and changes in one place.",
           image: Image.asset(Image_path().onBoarding_2),
           decoration: const PageDecoration(
+            contentMargin: EdgeInsets.only(top: 80),
             imagePadding: EdgeInsets.only(top: 50),
           ),
         ),
         PageViewModel(
           title: "Easily and safely with our app",
           body:
-              "Book, track, and manage your appointments anytime — with full safety and ease.",
+          "Book, track, and manage your appointments anytime — with full safety and ease.",
           image: Image.asset(Image_path().onBoarding_3),
           decoration: const PageDecoration(
+            contentMargin: EdgeInsets.only(top: 80),
             imagePadding: EdgeInsets.only(top: 50),
           ),
         ),
       ],
+
       showSkipButton: true,
       skip: Text(
         "Skip",
@@ -54,36 +55,18 @@ class OnBoardingScreen extends StatelessWidget {
       ),
       next: Icon(Icons.arrow_forward, size: 25, color: Colors.blue[900]),
       done: Text(
-        "Done",
+        "Get Started",
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 16,
-          color: Colors.blue[900],
+          color: Colors.blue[700],
         ),
       ),
       onDone: () {
         // Navigate to home or login
-       Navigator.of(context).pushReplacementNamed('/login' );
+        Navigator.pushReplacementNamed(context, '/login') ;
 
       },
-    );
-  }
-}
-
-// Dummy Home Screen for testing
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Doctify")),
-      body: Center(
-        child: Text(
-          "Dummy Home Screen for testing",
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
     );
   }
 }
