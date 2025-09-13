@@ -51,9 +51,13 @@ class _SelectionScreenState extends State<SelectionScreen> {
                       child: Text('Access your medical records, book appointments, and manage prescriptions with ease.',style: Theme.of(context).textTheme.bodySmall,maxLines: 3,textAlign: TextAlign.center,),
 
                     ) ,
+<<<<<<< HEAD:lib/View/AuthScreens/Selection_Screen.dart
                       ElevatedButton(onPressed: (){
                         Navigator.of(context).push(MaterialPageRoute(builder: (_)=> SignUpScreen()));
                       },style: ElevatedButton.styleFrom(
+=======
+                      ElevatedButton(onPressed: (){},style: ElevatedButton.styleFrom(
+>>>>>>> origin/fix_main_screens:lib/View/screens/AuthScreens/Selection_Screen.dart
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
 
@@ -95,11 +99,17 @@ class _SelectionScreenState extends State<SelectionScreen> {
 
                     ) ,
                       ElevatedButton(onPressed: (){},style: ElevatedButton.styleFrom(
+<<<<<<< HEAD:lib/View/AuthScreens/Selection_Screen.dart
                         backgroundColor: App_Colors.generalColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
 
 
+=======
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+
+>>>>>>> origin/fix_main_screens:lib/View/screens/AuthScreens/Selection_Screen.dart
                         ),
                         fixedSize: Size(300, 50),
                       ), child:  Row(

@@ -2,6 +2,8 @@ import 'package:doctifityapp/utills/ImagePath.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
+import '../main_navigation.dart';
+
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});
 
@@ -29,7 +31,7 @@ class OnBoardingScreen extends StatelessWidget {
         PageViewModel(
           title: "Track your bookings",
           body:
-          "Stay updated with your upcoming appointments and changes in one place.",
+              "Stay updated with your upcoming appointments and changes in one place.",
           image: Image.asset(Image_path().onBoarding_2),
           decoration: const PageDecoration(
             contentMargin: EdgeInsets.only(top: 80),
@@ -39,7 +41,7 @@ class OnBoardingScreen extends StatelessWidget {
         PageViewModel(
           title: "Easily and safely with our app",
           body:
-          "Book, track, and manage your appointments anytime — with full safety and ease.",
+              "Book, track, and manage your appointments anytime — with full safety and ease.",
           image: Image.asset(Image_path().onBoarding_3),
           decoration: const PageDecoration(
             contentMargin: EdgeInsets.only(top: 80),
@@ -64,8 +66,9 @@ class OnBoardingScreen extends StatelessWidget {
       ),
       onDone: () {
         // Navigate to home or login
-        Navigator.pushReplacementNamed(context, '/login') ;
-
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const MainNavigation()),
+        );
       },
     );
   }
