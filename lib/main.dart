@@ -2,7 +2,7 @@ import 'package:doctifityapp/ModelView/Auth/AuthProvider.dart';
 import 'package:doctifityapp/View/AuthScreens/Selection_Screen.dart';
 import 'package:doctifityapp/View/AuthScreens/Sign_In_Screen.dart';
 import 'package:doctifityapp/View/AuthScreens/Sign_up_Screen.dart';
-import 'package:doctifityapp/View/CompleteAccount/CompleteAcountPage.dart';
+import 'package:doctifityapp/View/HomePageScreens/Home_page_screen.dart';
 import 'package:doctifityapp/View/Intro_Screens/OnBoarding_Screens.dart';
 import 'package:doctifityapp/View/Intro_Screens/Splash_Screen.dart';
 import 'package:doctifityapp/utills/Themes.dart';
@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
         '/signup': (context) => SignUpScreen(),
         '/login' : (context) => LoginPage() ,
         // '/signup': (context) => SignUpScreen(),
-        '/home': (context) => HomeScreen(),
+        '/home': (context) => HomePageScreen(),
          '/onboarding': (context) => OnBoardingScreen(),
       },
 
