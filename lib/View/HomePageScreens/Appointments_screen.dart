@@ -1,4 +1,3 @@
-import 'package:doctifityapp/View/screens/main_navigation.dart';
 import 'package:flutter/material.dart';
 
 class Appointments extends StatefulWidget {

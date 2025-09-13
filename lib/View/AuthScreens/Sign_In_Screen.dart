@@ -5,6 +5,7 @@ import 'package:doctifityapp/utills/ImagePath.dart';
 import 'package:flutter/material.dart';
 import 'package:doctifityapp/utills/ScreenSize.dart';
 import 'package:doctifityapp/ModelView/Auth/AuthProvider.dart';
+import 'package:doctifityapp/utills/ImagePath.dart';
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
@@ -53,7 +54,7 @@ class Login extends StatelessWidget {
                 ),
                 Center(
                   child: Image.asset(
-                    Image_path().logo,
+                    ImagePath.logo,
                     height: ScreenSize.height(context)*0.322,
                     width: ScreenSize.width(context)*0.67,
                   ),

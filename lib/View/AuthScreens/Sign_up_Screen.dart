@@ -41,7 +41,7 @@ class SignUp extends StatelessWidget {
 
                 Center(
                   child: Image.asset(
-                    Image_path().logo,
+                    ImagePath.logo,
                     height: ScreenSize.height(context) * 0.322,
                     width: ScreenSize.width(context) * 0.67,
                   ),

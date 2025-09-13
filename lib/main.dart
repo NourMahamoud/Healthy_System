@@ -6,11 +6,14 @@ import 'package:doctifityapp/utills/Themes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:doctifityapp/View/screens/main_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'view_model/home_view_model.dart';
 import 'view_model/navigation_view_model.dart';
+import 'package:doctifityapp/View/AuthScreens/Sign_In_Screen.dart';
+import 'package:doctifityapp/View/AuthScreens/Sign_up_Screen.dart';
+
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,7 +50,7 @@ class _MyAppState extends State<MyApp> {
       darkTheme: AppThemes().darkTheme,
       home: SplashScreen(),
       routes: {
-        '/selection': (context) => SelectionScreen(),
+
         '/signup': (context) => SignUpScreen(),
         '/login' : (context) => LoginPage() ,
         // '/signup': (context) => SignUpScreen(),

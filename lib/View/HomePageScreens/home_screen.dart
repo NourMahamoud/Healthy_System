@@ -1,15 +1,15 @@
 import 'package:doctifityapp/View/screens/details_Screens/details.dart';
 import 'package:doctifityapp/View/screens/details_Screens/more_doctors.dart';
 import 'package:doctifityapp/View/screens/details_Screens/more_hospitals.dart';
-import 'package:doctifityapp/View/screens/main_navigation.dart';
-import 'package:doctifityapp/View/screens/main_screens/notification_screen.dart';
 import 'package:doctifityapp/utills/ImagePath.dart';
 import 'package:doctifityapp/view_model/home_view_model.dart';
 import 'package:doctifityapp/view_model/navigation_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../widgets/get_QRCode.dart';
-import '../../../utills/ColorCodes.dart';
+import '../widgets/get_QRCode.dart';
+import '../../utills/ColorCodes.dart';
+import 'notification_screen.dart';
+import 'package:doctifityapp/utills/ImagePath.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -188,7 +188,7 @@ class HomeScreen extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  Image.asset(Image_path().logo, width: 60),
+                  Image.asset(ImagePath.logo, width: 60),
                   SizedBox(width: 10),
                   Expanded(
                     child: Text(
@@ -311,7 +311,7 @@ class HomeScreen extends StatelessWidget {
                                     height: 35,
                                     width: 200,
                                     decoration: BoxDecoration(
-                                      color: App_Colors.buttonColor,
+                                      color: App_Colors.generalColor,
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Text(

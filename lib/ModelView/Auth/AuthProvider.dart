@@ -53,9 +53,7 @@ class AuthFunctionProvider extends ChangeNotifier {
     response.fold(
       (user) {
         if (user!.emailVerified) {
-          Navigator.of(
-            context,
-          ).pushReplacement(MaterialPageRoute(builder: (_) => HomeScreen()));
+        Navigator.pushReplacementNamed(context, '/home') ;
         } else {
           CustomSnackBar.showError(context, 'Please verify your email');
           sendEmailVer(context, user);
