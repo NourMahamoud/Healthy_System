@@ -1,23 +1,33 @@
-import 'package:doctifityapp/ModelView/HomePageProvider/HomePageProvider.dart';
-import 'package:doctifityapp/View/screens/details_Screens/details.dart';
-import 'package:doctifityapp/View/screens/details_Screens/more_doctors.dart';
-import 'package:doctifityapp/View/screens/details_Screens/more_hospitals.dart';
-import 'package:doctifityapp/utills/ImagePath.dart';
-import 'package:doctifityapp/view_model/home_view_model.dart';
-import 'package:doctifityapp/view_model/navigation_view_model.dart';
+import 'package:doctifityapp/ModelView/HomePageProvider/LogicProviderHomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../widgets/get_QRCode.dart';
+
 import '../../utills/ColorCodes.dart';
-import 'notification_screen.dart';
-import 'package:doctifityapp/utills/ImagePath.dart';
+import '../../utills/ImagePath.dart';
+import '../../view_model/home_view_model.dart';
+import '../../view_model/navigation_view_model.dart';
+import '../screens/details_Screens/details.dart';
+import '../widgets/get_QRCode.dart';
+import '../widgets/healthRecord_Card.dart';
+import 'hosoitals_screen.dart';
+
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+
 
   @override
   Widget build(BuildContext context) {
-    final vm = Provider.of<HomePageProvider>(context) ;
+
+    final vm = context.watch<HomeViewModel>();
+
+    // Responsive sizes
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    double titleFont = screenWidth * 0.05; // ~18
+    double subtitleFont = screenWidth * 0.04; // ~14
+    double smallFont = screenWidth * 0.035; // ~12
+
+    // Removed duplicate 'vm' declaration
     final user = vm.user;
     return Scaffold(
       appBar: AppBar(
@@ -25,33 +35,41 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         title: Consumer<HomeViewModel>(
           builder: (context, value, child) {
-
             return
             // user checking
             vm.user == null
                 ? const Text("Loading...")
                 : Row(
                     children: [
-                      user.imageUrl == null ? CircleAvatar(backgroundImage: AssetImage(user.gender == 'male' ? ImagePath.male : ImagePath.female)):
-                      CircleAvatar(backgroundImage: NetworkImage(user.imageUrl!)),
+                      user.imageUrl == null
+                          ? CircleAvatar(
+                              backgroundImage: AssetImage(
+                                user.gender == 'male'
+                                    ? ImagePath.male
+                                    : ImagePath.female,
+                              ),
+                            )
+                          : CircleAvatar(
+                              backgroundImage: NetworkImage(user.imageUrl!),
+                            ),
                       const SizedBox(width: 10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             "${user.name} 👋",
-
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: Colors.black,
-                              fontSize: 18,
+                              fontSize: titleFont,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           Text(
                             user.email,
 
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: Colors.grey,
-                              fontSize: 12,
+                              fontSize: smallFont,
                             ),
                           ),
                         ],
@@ -60,27 +78,25 @@ class HomeScreen extends StatelessWidget {
                   );
           },
         ),
-
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 12.0),
+            padding: EdgeInsets.only(right: screenWidth * 0.03),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
               children: [
                 GestureDetector(
                   onTap: () {
                     Future.delayed(const Duration(milliseconds: 300), () {
-                      context.read<NavigationViewModel>().setIndex(2);
+                      context.read<NavigationViewModel>().setIndex(3);
                     });
                   },
-                  child: const Icon(
+                  child: Icon(
                     Icons.notifications_none_outlined,
                     color: Colors.black,
-                    size: 24,
+                    size: screenWidth * 0.06,
                   ),
                 ),
-                const SizedBox(height: 6),
+                SizedBox(height: screenHeight * 0.005),
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(
@@ -89,10 +105,10 @@ class HomeScreen extends StatelessWidget {
                       ),
                     );
                   },
-                  child: const Icon(
+                  child: Icon(
                     Icons.keyboard_arrow_down_sharp,
                     color: Colors.black,
-                    size: 24,
+                    size: screenWidth * 0.06,
                   ),
                 ),
               ],
@@ -102,89 +118,58 @@ class HomeScreen extends StatelessWidget {
       ),
 
       body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(screenWidth * 0.04),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Specialists
+            // Health Records
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Specialists",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  "Health Records",
+                  style: TextStyle(
+                    fontSize: titleFont,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-
-                // Text Button Navigat to Doctors Page when we assgin as hospital
                 TextButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => MoreDoctors()),
-                    );
-                  },
-                  child: vm.doctors.length == 1
-                      ? Text("")
-                      : Text("more...", style: TextStyle(color: Colors.blue)),
+                  onPressed: () {},
+                  child: Text(
+                    "All Records",
+                    style: TextStyle(color: Colors.blue, fontSize: smallFont),
+                  ),
                 ),
               ],
             ),
-            SizedBox(height: 10),
+            SizedBox(height: screenHeight * 0.01),
+
             SizedBox(
-              height: 120,
-              child: ListView.builder(
+              height: screenHeight * 0.22,
+              child: GridView(
+                shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
-                itemCount: vm.doctors.length,
-                itemBuilder: (context, index) {
-                  final doctor = vm.doctors[index];
-                  return InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => Information(
-                            name: doctor.name,
-                            image: doctor.imageUrl!,
-                            active: true,
-                            role: "doctor",
-                            address: doctor.clinic_address,
-                            email: doctor.email,
-                            phone: doctor.clinic_nunmber,
-                            specialty: doctor.specialization,
-                          ),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      width: 100,
-                      margin: EdgeInsets.only(right: 10),
-                      child: Column(
-                        children: [
-                          CircleAvatar(
-                            radius: 35,
-                            backgroundImage: AssetImage(doctor.imageUrl!),
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            doctor.name,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            doctor.specialization,
-                            style: TextStyle(color: Colors.grey, fontSize: 12),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  mainAxisSpacing: 8,
+                ),
+                children: const [
+                  HealthrecordCard(title: 'Covid Report', subtitle: 'Negative'),
+                  HealthrecordCard(title: 'Blood Type', subtitle: 'AB+'),
+                  HealthrecordCard(title: 'Blood pressure', subtitle: '120/80'),
+                  HealthrecordCard(
+                    title: 'Smoking Status',
+                    subtitle: 'Non-smoker',
+                  ),
+                ],
               ),
             ),
+            SizedBox(height: screenHeight * 0.02),
 
-            SizedBox(height: 20),
-
-            // Vaccination Banner
+            // Banner
             Container(
-              padding: EdgeInsets.all(16),
+              height: screenHeight * 0.15,
+              padding: EdgeInsets.all(screenWidth * 0.04),
               decoration: BoxDecoration(
                 color: Colors.lightBlue[50],
                 borderRadius: BorderRadius.circular(12),
@@ -193,17 +178,20 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Image.asset(ImagePath.logo, width: 60),
                   SizedBox(width: 10),
+
                   Expanded(
                     child: Text(
                       "Welcome to Doctify App",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: titleFont,
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-
-            SizedBox(height: 20),
+            SizedBox(height: screenHeight * 0.02),
 
             // Around You
             Row(
@@ -211,41 +199,50 @@ class HomeScreen extends StatelessWidget {
               children: [
                 Text(
                   "Around You",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: titleFont,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => MoreHospitals()),
+                      MaterialPageRoute(
+                        builder: (context) => HospitalsScreen(),
+                      ),
                     );
                   },
                   child: vm.hospitals.length == 1
-                      ? Text("")
-                      : Text("More...", style: TextStyle(color: Colors.blue)),
+                      ? SizedBox.shrink()
+                      : Text(
+                          "More...",
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: smallFont,
+                          ),
+                        ),
                 ),
               ],
             ),
-            SizedBox(height: 10),
+            SizedBox(height: screenHeight * 0.01),
 
             // Hospital List
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.4,
+              height: screenHeight * 0.45,
               child: ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
                 itemCount: vm.hospitals.length,
                 itemBuilder: (context, index) {
                   final hospital = vm.hospitals[index];
                   return Card(
                     color: Colors.white,
                     margin: EdgeInsets.only(bottom: 10),
+
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(12.0),
+                      padding: EdgeInsets.all(screenWidth * 0.035),
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // hospital image
                           Card(
@@ -257,12 +254,13 @@ class HomeScreen extends StatelessWidget {
                               hospital.imageUrl,
                               width: 80,
                               height: 80,
+
                               fit: BoxFit.cover,
                             ),
                           ),
-                          SizedBox(width: 12),
+                          SizedBox(width: screenWidth * 0.03),
 
-                          // hospital data
+                          // Hospital Info
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -270,7 +268,7 @@ class HomeScreen extends StatelessWidget {
                                 Text(
                                   hospital.name,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: titleFont,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -279,23 +277,23 @@ class HomeScreen extends StatelessWidget {
                                     Icon(
                                       Icons.star,
                                       color: Colors.amber,
-                                      size: 16,
+                                      size: screenWidth * 0.04,
                                     ),
-                                    const SizedBox(width: 4),
+                                    SizedBox(width: screenWidth * 0.01),
                                     Text(
                                       "${hospital.rating} (${hospital.reviews} reviews)",
-                                      style: TextStyle(fontSize: 12),
+                                      style: TextStyle(fontSize: smallFont),
                                     ),
                                   ],
                                 ),
                                 Text(
-                                  "📍 ${hospital.location} ",
+                                  "📍 ${hospital.location}",
                                   style: TextStyle(
-                                    fontSize: 12,
+                                    fontSize: smallFont,
                                     color: Colors.grey,
                                   ),
                                 ),
-                                SizedBox(height: 6),
+                                SizedBox(height: screenHeight * 0.01),
                                 InkWell(
                                   onTap: () {
                                     Navigator.of(context).push(
@@ -315,8 +313,8 @@ class HomeScreen extends StatelessWidget {
                                   },
                                   child: Container(
                                     alignment: Alignment.center,
-                                    height: 35,
-                                    width: 200,
+                                    height: screenHeight * 0.05,
+                                    width: screenWidth * 0.5,
                                     decoration: BoxDecoration(
                                       color: App_Colors.generalColor,
                                       borderRadius: BorderRadius.circular(10),
@@ -325,7 +323,7 @@ class HomeScreen extends StatelessWidget {
                                       "Details",
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 18,
+                                        fontSize: subtitleFont,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),

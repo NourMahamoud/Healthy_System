@@ -3,63 +3,102 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppThemes {
-  final ThemeData lightTheme = ThemeData(
-    appBarTheme: AppBarTheme(
+  static final ThemeData lightTheme = ThemeData(
+    brightness: Brightness.light,
+    scaffoldBackgroundColor: Colors.white,
+
+    appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white,
       elevation: 0,
       iconTheme: IconThemeData(color: Colors.black),
     ),
-      brightness: Brightness.light,
-      scaffoldBackgroundColor: Colors.white,
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-            backgroundColor: App_Colors.generalColor
-        ) ,
-      ) ,
-      textTheme: TextTheme(
-        displayLarge:TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold,) ,
-        titleMedium: TextStyle(color: Colors.black,fontSize: 50,fontFamily: 'Barbariska'),
-        bodySmall: TextStyle(color: Colors.black,fontSize: 15, fontFamily: 'Akshar',) ,
-        titleLarge:TextStyle(color: Colors.black,fontSize: 25,fontFamily: 'Barbariska',) ,
-        labelLarge: TextStyle(color: Colors.black,fontSize: 13) ,
-        labelSmall: TextStyle(color: Colors.black,fontSize: 15) ,
-      ) ,
-      iconTheme: IconThemeData(color: App_Colors.generalColor) ,
 
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: Colors.white,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: App_Colors.generalColor,
-        elevation: 0,
-        type: BottomNavigationBarType.shifting,
-      )
+    textTheme: TextTheme(
+      displayLarge: const TextStyle(
+        color: Colors.black,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
+      titleMedium: const TextStyle(
+        color: Colors.black,
+        fontSize: 24,
+        fontFamily: 'Barbariska',
+      ),
+      bodySmall: GoogleFonts.akshar(color: Colors.black, fontSize: 15),
+      titleLarge: const TextStyle(
+        color: Colors.black,
+        fontSize: 25,
+        fontFamily: 'Barbariska',
+      ),
+      labelLarge: const TextStyle(color: Colors.black, fontSize: 13),
+      labelSmall: const TextStyle(color: Colors.black, fontSize: 15),
+    ),
+
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: App_Colors.generalColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+    ),
+
+    iconTheme: IconThemeData(color: App_Colors.generalColor),
+
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: Colors.white,
+      selectedItemColor: App_Colors.generalColor,
+      unselectedItemColor: Colors.black54,
+      elevation: 4,
+      type: BottomNavigationBarType.fixed,
+    ),
   );
-  final ThemeData darkTheme = ThemeData(
-      brightness: Brightness.dark,
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: Colors.black,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: App_Colors.generalColor,
-        elevation: 5,
-        type: BottomNavigationBarType.shifting,
-      ) ,
-      scaffoldBackgroundColor: Colors.black ,
-      textTheme: TextTheme(
-        displayLarge:TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold,) ,
 
-        titleMedium: TextStyle(color: Colors.white,fontSize: 50,fontFamily: 'Barbariska'),
-        bodySmall: GoogleFonts.akshar(color: Colors.white,fontSize: 15,)  ,
-        titleLarge:TextStyle(color: Colors.white,fontSize: 25,fontWeight: FontWeight.bold,fontFamily: 'Barbariska') ,
-        labelLarge: TextStyle(color: Colors.white,fontSize: 13) ,
-        labelSmall: TextStyle(color: Colors.white,fontSize:15 ) ,
+  static final ThemeData darkTheme = ThemeData(
+    brightness: Brightness.dark,
+    scaffoldBackgroundColor: Colors.black,
 
-      ) ,
-      iconTheme: IconThemeData(color: App_Colors.generalColor) ,
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-            backgroundColor: App_Colors.generalColor
-        ) ,
-      )
-  ) ;
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.black,
+      elevation: 0,
+      iconTheme: IconThemeData(color: Colors.white),
+    ),
 
+    textTheme: TextTheme(
+      displayLarge: const TextStyle(
+        color: Colors.white,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
+      titleMedium: const TextStyle(
+        color: Colors.white,
+        fontSize: 24,
+        fontFamily: 'Barbariska',
+      ),
+      bodySmall: GoogleFonts.akshar(color: Colors.white, fontSize: 15),
+      titleLarge: const TextStyle(
+        color: Colors.white,
+        fontSize: 25,
+        fontFamily: 'Barbariska',
+        fontWeight: FontWeight.bold,
+      ),
+      labelLarge: const TextStyle(color: Colors.white, fontSize: 13),
+      labelSmall: const TextStyle(color: Colors.white, fontSize: 15),
+    ),
+
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: App_Colors.generalColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+    ),
+
+    iconTheme: IconThemeData(color: App_Colors.generalColor),
+
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: Colors.black,
+      selectedItemColor: App_Colors.generalColor,
+      unselectedItemColor: Colors.white70,
+      elevation: 4,
+      type: BottomNavigationBarType.fixed,
+    ),
+  );
 }

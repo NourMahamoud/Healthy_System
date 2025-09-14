@@ -1,32 +1,18 @@
-import 'package:doctifityapp/ModelView/HomePageProvider/HomePageProvider.dart';
-import 'package:doctifityapp/View/HomePageScreens/MyAccount_screen.dart';
 import 'package:doctifityapp/View/HomePageScreens/Appointments_screen.dart';
-import 'package:doctifityapp/View/HomePageScreens/Home_screen.dart';
+import 'package:doctifityapp/View/HomePageScreens/Home_screen.dart' ;
+import 'package:doctifityapp/View/HomePageScreens/MyAccount_screen.dart';
 import 'package:doctifityapp/View/HomePageScreens/notification_screen.dart';
-
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:doctifityapp/View/HomePageScreens/home_screen.dart';
 
-import '../../view_model/navigation_view_model.dart' ;
-
-class HomePage extends StatelessWidget {
-   HomePage({super.key, required this.id});
-   final String id;
-
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(create: (_)=>HomePageProvider(id),
-      child: HomePageScreen(),
-    );
-  }
-}
+import '../../view_model/navigation_view_model.dart' show NavigationViewModel;
 
 class HomePageScreen extends StatelessWidget {
-   HomePageScreen({super.key});
+  HomePageScreen({super.key});
 
-  final List<Widget> _screens = const [
-    HomeScreen(),
+  final List<Widget> _screens =  [
+
     Appointments(),
     NotificationScreen(),
     MyAccountScreen(),
@@ -35,10 +21,8 @@ class HomePageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final vm = context.watch<NavigationViewModel>();
-    final homeProvider = context.watch<HomePageProvider>();
 
     return Scaffold(
-      backgroundColor: Colors.white,
       body: AnimatedSwitcher(
         duration: const Duration(milliseconds: 700),
         switchInCurve: Curves.easeInOut,
@@ -65,7 +49,19 @@ class HomePageScreen extends StatelessWidget {
             ),
           );
         },
-        child: _screens[vm.currentIndex],
+        child: Container(
+          child: PageView(
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              
+              Appointments(),
+              NotificationScreen(),
+              MyAccountScreen(),
+            ],
+
+            controller: PageController(initialPage: vm.currentIndex),
+          ),
+        ),
       ),
 
       bottomNavigationBar: BottomNavigationBar(
@@ -77,11 +73,10 @@ class HomePageScreen extends StatelessWidget {
         type: BottomNavigationBarType.fixed,
         elevation: 15,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: "My Account"),
+          BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: "Home"),
           BottomNavigationBarItem(
             icon: Icon(Icons.bed_outlined),
-            label: "Doctors",
-
+            label: "Appointments",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.notifications),
@@ -89,7 +84,7 @@ class HomePageScreen extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: "Home",
+            label: "My Account",
           ),
         ],
       ),

@@ -43,6 +43,9 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds: 5), () {
+      SplachScreenController().checkUser(context);
+    });
+    Future.delayed(const Duration(seconds: 5), () {
       SplachScreenController().checkUser(context) ;
     } ) ;
     return Scaffold(

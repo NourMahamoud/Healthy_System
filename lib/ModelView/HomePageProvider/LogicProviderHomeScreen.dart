@@ -2,7 +2,11 @@ import 'package:doctifityapp/Model/Data/Model/DoctorModel.dart';
 import 'package:doctifityapp/Model/Data/Model/UserModel.dart';
 import 'package:doctifityapp/Model/Repository/FireBaseFuncation/FireStoreFuncations.dart';
 import 'package:doctifityapp/Model/model_hospital.dart';
+import 'package:doctifityapp/View/HomePageScreens/Appointments_screen.dart';
+import 'package:doctifityapp/View/HomePageScreens/home_screen.dart';
+import 'package:doctifityapp/View/HomePageScreens/notification_screen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class HomePageProvider extends ChangeNotifier {
   final FireStoreFunction _fireStoreFunction = FireStoreFunction() ;
@@ -47,5 +51,17 @@ class HomePageProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Widget getChangeScreens (int index){
+       switch (index) {
+         case 0 :
+           return HomeScreen();
+            case 1 :
+              return Appointments();
+            case 2 :
+              return NotificationScreen();
+            case 3 :
+              return HomeScreen();
+       }
+  }
 
 }

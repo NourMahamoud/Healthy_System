@@ -119,22 +119,25 @@ class _NotificationScreenState extends State<NotificationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MoreAppBar(title: Text("Notification" , style: TextStyle(color: Colors.black , fontWeight: FontWeight.bold , fontSize: 20),), showBack: false),
-      body: ListView.builder(
-        itemCount: notifications.length,
-        itemBuilder: (context, index) {
-          final notif = notifications[index];
-          return NotificationCard(
-            icon: notif["icon"],
-            title: notif["title"],
-            content: notif["content"],
-            onClick: () {
-              showNotification(index);
-            },
-            onDelete: () {
-              deleteNotification(index);
-            },
-          );
-        },
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        child: ListView.builder(
+          itemCount: notifications.length,
+          itemBuilder: (context, index) {
+            final notif = notifications[index];
+            return NotificationCard(
+              icon: notif["icon"],
+              title: notif["title"],
+              content: notif["content"],
+              onClick: () {
+                showNotification(index);
+              },
+              onDelete: () {
+                deleteNotification(index);
+              },
+            );
+          },
+        ),
       ),
     );
   }

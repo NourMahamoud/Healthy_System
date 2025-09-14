@@ -1,8 +1,9 @@
+import 'package:doctifityapp/View/HomePageScreens/Home_page_screen.dart';
+import 'package:doctifityapp/View/HomePageScreens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:doctifityapp/View/AuthScreens/Sign_In_Screen.dart';
 import 'package:doctifityapp/View/AuthScreens/Sign_up_Screen.dart';
 import 'package:doctifityapp/View/CompleteAccount/CompleteAcountPage.dart';
-import 'package:doctifityapp/View/HomePageScreens/Home_page_screen.dart';
 import 'package:doctifityapp/View/Intro_Screens/OnBoarding_Screens.dart';
 import 'package:doctifityapp/View/Intro_Screens/Splash_Screen.dart';
 
@@ -22,7 +23,7 @@ class AppRoutes {
       case homeScreen:
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (_) => HomePage(id: args['id']),
+          builder: (_) => HomePageScreen(),
         );
 
       case loginScreen:
