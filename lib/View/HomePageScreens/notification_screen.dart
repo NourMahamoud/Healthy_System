@@ -1,11 +1,9 @@
-import 'package:doctifityapp/View/screens/main_navigation.dart';
-import 'package:doctifityapp/View/screens/main_screens/home_screen.dart';
 import 'package:doctifityapp/View/widgets/more_app_bar.dart';
 import 'package:doctifityapp/view_model/navigation_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../widgets/notification_card.dart';
+import '../widgets/notification_card.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});

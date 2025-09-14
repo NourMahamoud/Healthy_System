@@ -85,7 +85,7 @@ class _QRScreenState extends State<QRScreen>
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset(Image_path().logo, height: 160),
+                      Image.asset(ImagePath.logo, height: 160),
                       const SizedBox(height: 30),
                       Container(
                         padding: const EdgeInsets.all(16),

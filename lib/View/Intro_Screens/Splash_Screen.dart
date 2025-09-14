@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:doctifityapp/View/screens/Introduction_Screens/OnBoarding_Screens.dart';
+import 'package:doctifityapp/View/Intro_Screens/SplachScreenController.dart';
 import 'package:doctifityapp/utills/ImagePath.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,14 +31,6 @@ class _SplashScreenState extends State<SplashScreen>
       vsync: this,
       duration: const Duration(seconds: 3),
     )..repeat(reverse: true);
-
-    // Navigate after delay
-    Timer(const Duration(seconds: 5), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const OnBoardingScreen()),
-      );
-    });
   }
 
   @override
@@ -50,6 +42,9 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(const Duration(seconds: 5), () {
+      SplachScreenController().checkUser(context);
+    });
     return Scaffold(
       body: AnimatedContainer(
         duration: const Duration(seconds: 3),
@@ -88,7 +83,7 @@ class _SplashScreenState extends State<SplashScreen>
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Image.asset(Image_path().logo, height: 120, width: 500),
+                      Image.asset(ImagePath.logo, height: 120, width: 500),
                       const SizedBox(height: 16),
                       Text(
                         "Doctify",

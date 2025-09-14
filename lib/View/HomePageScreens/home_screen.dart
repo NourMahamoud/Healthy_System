@@ -1,19 +1,17 @@
-import 'package:doctifityapp/View/screens/details_Screens/details.dart';
-import 'package:doctifityapp/View/screens/main_navigation.dart';
-import 'package:doctifityapp/View/screens/main_screens/notification_screen.dart';
-import 'package:doctifityapp/utills/ImagePath.dart';
-import 'package:doctifityapp/view_model/home_view_model.dart';
-import 'package:doctifityapp/view_model/navigation_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../widgets/get_QRCode.dart';
-import '../../../utills/ColorCodes.dart';
-import '../../widgets/healthRecord_Card.dart';
-import 'doctors_screen.dart';
+
+import '../../utills/ColorCodes.dart';
+import '../../utills/ImagePath.dart';
+import '../../view_model/home_view_model.dart';
+import '../../view_model/navigation_view_model.dart';
+import '../screens/details_Screens/details.dart';
+import '../widgets/get_QRCode.dart';
+import '../widgets/healthRecord_Card.dart';
 import 'hosoitals_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, required id});
 
   @override
   Widget build(BuildContext context) {
@@ -27,22 +25,32 @@ class HomeScreen extends StatelessWidget {
     double subtitleFont = screenWidth * 0.04; // ~14
     double smallFont = screenWidth * 0.035; // ~12
 
+    // Removed duplicate 'vm' declaration
+    final user = vm.user;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
         title: Consumer<HomeViewModel>(
           builder: (context, value, child) {
-            final user = vm.users.first;
-            return user == null
-                ? Text("Loading...", style: TextStyle(fontSize: titleFont))
+            return
+            // user checking
+            vm.user == null
+                ? const Text("Loading...")
                 : Row(
                     children: [
-                      CircleAvatar(
-                        backgroundImage: AssetImage(user.imageUrl),
-                        radius: screenWidth * 0.06,
-                      ),
-                      SizedBox(width: screenWidth * 0.03),
+                      user.imageUrl == null
+                          ? CircleAvatar(
+                              backgroundImage: AssetImage(
+                                user.gender == 'male'
+                                    ? ImagePath.male
+                                    : ImagePath.female,
+                              ),
+                            )
+                          : CircleAvatar(
+                              backgroundImage: NetworkImage(user.imageUrl!),
+                            ),
+                      const SizedBox(width: 10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -55,7 +63,8 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            user.address,
+                            user.email,
+
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: smallFont,
@@ -165,8 +174,9 @@ class HomeScreen extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  Image.asset(Image_path().logo, width: screenWidth * 0.15),
-                  SizedBox(width: screenWidth * 0.03),
+                  Image.asset(ImagePath.logo, width: 60),
+                  SizedBox(width: 10),
+
                   Expanded(
                     child: Text(
                       "Welcome to Doctify App",
@@ -222,7 +232,9 @@ class HomeScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final hospital = vm.hospitals[index];
                   return Card(
-                    margin: EdgeInsets.only(bottom: screenHeight * 0.015),
+                    color: Colors.white,
+                    margin: EdgeInsets.only(bottom: 10),
+
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -230,12 +242,17 @@ class HomeScreen extends StatelessWidget {
                       padding: EdgeInsets.all(screenWidth * 0.035),
                       child: Row(
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
+                          // hospital image
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            elevation: 5,
                             child: Image.asset(
                               hospital.imageUrl,
-                              width: screenWidth * 0.15,
-                              height: screenWidth * 0.15,
+                              width: 80,
+                              height: 80,
+
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -297,7 +314,7 @@ class HomeScreen extends StatelessWidget {
                                     height: screenHeight * 0.05,
                                     width: screenWidth * 0.5,
                                     decoration: BoxDecoration(
-                                      color: App_Colors.buttonColor,
+                                      color: App_Colors.generalColor,
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Text(
