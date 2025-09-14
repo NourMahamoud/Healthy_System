@@ -5,9 +5,11 @@ import 'package:doctifityapp/Model/Repository/FireBaseFuncation/FireStoreFuncati
 import 'package:doctifityapp/View/CompleteAccount/Custom_dialog_addDisease.dart';
 import 'package:doctifityapp/utills/ColorCodes.dart';
 import 'package:doctifityapp/utills/SnackBar.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:doctifityapp/Model/Data/Model/UserModel.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' hide User;
 
 class CompleteAccountProvider extends ChangeNotifier {
   // Role of the account (Doctor / Patient)
@@ -310,27 +312,125 @@ class CompleteAccountProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateNationalIdUrl(BuildContext context, String url) async {
-    try {
-      await FirebaseFirestore.instance.collection("users").doc(id).set({
-        "nationalIdUrl": url,
-      }, SetOptions(merge: true));
 
-      CustomSnackBar.showSuccess(context, "National ID uploaded successfully");
-    } catch (e) {
-      CustomSnackBar.showError(context, "Failed to update National ID: $e");
+  Future<void> uploadNationalId(BuildContext context) async {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+      withData: true,
+    );
+
+    if (result != null) {
+      // Show progress loader
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) =>  Center(
+          child: CircularProgressIndicator(
+            color: App_Colors.generalColor,
+          ),
+        ),
+      );
+
+      final supabase = Supabase.instance.client;
+      final file = result.files.first;
+      final fileName = "${id}_nid.${file.extension}";
+
+      try {
+        // Upload to Supabase
+        await supabase.storage.from('national_ids').uploadBinary(
+          fileName,
+          file.bytes!,
+          fileOptions: const FileOptions(upsert: true),
+        );
+
+        // Get public URL
+        final publicUrl =
+        supabase.storage.from('national_ids').getPublicUrl(fileName);
+
+        // Save to Firestore
+        await FirebaseFirestore.instance.collection("users").doc(id).set({
+          "nationalIdUrl": publicUrl,
+        }, SetOptions(merge: true));
+
+        // Close loader
+        Navigator.of(context).pop();
+
+        CustomSnackBar.showSuccess(
+          context,
+          "National ID uploaded successfully",
+        );
+      } catch (e) {
+        Navigator.of(context).pop();
+        CustomSnackBar.showError(
+          context,
+          "Failed to upload National ID: $e",
+        );
+      }
     }
   }
 
-  Future<void> addMedicalFile(BuildContext context, String url) async {
-    try {
-      await FirebaseFirestore.instance.collection("users").doc(id).set({
-        "medicalFiles": FieldValue.arrayUnion([url]),
-      }, SetOptions(merge: true));
 
-      CustomSnackBar.showSuccess(context, "Medical file added successfully");
-    } catch (e) {
-      CustomSnackBar.showError(context, "Failed to add medical file: $e");
+  Future<void> uploadMedicalFiles(BuildContext context) async {
+    final result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      type: FileType.custom,
+      allowedExtensions: ['pdf', 'jpg', 'png'],
+      withData: true,
+    );
+
+    if (result != null) {
+      // Show progress loader
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => Center(
+          child: CircularProgressIndicator(
+            color: App_Colors.generalColor,
+          ),
+        ),
+      );
+
+      final supabase = Supabase.instance.client;
+      final List<String> uploadedUrls = [];
+
+      for (var file in result.files) {
+        final fileName = "${id}_${file.name}";
+        try {
+          // Upload to Supabase
+          await supabase.storage.from('medical_files').uploadBinary(
+            fileName,
+            file.bytes!,
+            fileOptions: const FileOptions(upsert: true),
+          );
+
+          // Get public URL
+          final publicUrl =
+          supabase.storage.from('medical_files').getPublicUrl(fileName);
+
+          uploadedUrls.add(publicUrl);
+        } catch (e) {
+          CustomSnackBar.showError(
+            context,
+            "Failed to upload ${file.name}: $e",
+          );
+        }
+      }
+
+      if (uploadedUrls.isNotEmpty) {
+        // Save all to Firestore in one go
+        await FirebaseFirestore.instance.collection("users").doc(id).set({
+          "medicalFiles": FieldValue.arrayUnion(uploadedUrls),
+        }, SetOptions(merge: true));
+      }
+
+      // Close loader
+      Navigator.of(context).pop();
+
+      CustomSnackBar.showSuccess(
+        context,
+        "Medical files uploaded successfully",
+      );
     }
   }
+
 }

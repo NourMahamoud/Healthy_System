@@ -180,58 +180,7 @@ class CompleteacountPage extends StatelessWidget {
                           style: Theme.of(context).textTheme.displayLarge,
                         ),
                         ElevatedButton.icon(
-                          onPressed: () async {
-                            final result = await FilePicker.platform.pickFiles(
-                              type: FileType.image,
-                              withData: true,
-                            );
-                            if (result != null) {
-                              showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (_) => Center(
-                                  child: CircularProgressIndicator(
-                                    color: App_Colors.generalColor,
-                                  ),
-                                ),
-                              );
-
-                              final supabase = Supabase.instance.client;
-                              final file = result.files.first;
-                              final fileName =
-                                  "${provider.id}_nid.${file.extension}";
-
-                              try {
-                                await supabase.storage
-                                    .from('national_ids')
-                                    .uploadBinary(
-                                      fileName,
-                                      file.bytes!,
-                                      fileOptions: const FileOptions(
-                                        upsert: true,
-                                      ),
-                                    );
-                                final publicUrl = supabase.storage
-                                    .from('national_ids')
-                                    .getPublicUrl(fileName);
-                                await provider.updateNationalIdUrl(
-                                  context,
-                                  publicUrl,
-                                );
-                              } catch (e) {
-                                CustomSnackBar.showError(
-                                  context,
-                                  "Failed to upload National ID: $e",
-                                );
-                                print('$e');
-                              }
-                              Navigator.of(context).pop();
-                              CustomSnackBar.showSuccess(
-                                context,
-                                "National ID uploaded successfully",
-                              );
-                            }
-                          },
+                          onPressed: () => provider.uploadNationalId(context),
                           icon: const Icon(Icons.upload),
                           label: const Text("Upload National ID"),
                           style: ElevatedButton.styleFrom(
@@ -530,72 +479,7 @@ class CompleteacountPage extends StatelessWidget {
                                 style: Theme.of(context).textTheme.displayLarge,
                               ),
                               ElevatedButton.icon(
-                                onPressed: () async {
-                                  final result = await FilePicker.platform
-                                      .pickFiles(
-                                        allowMultiple: true,
-                                        type: FileType.custom,
-                                        allowedExtensions: [
-                                          'pdf',
-                                          'jpg',
-                                          'png',
-                                        ],
-                                        withData: true,
-                                      );
-                                  if (result != null) {
-                                    showDialog(
-                                      context: context,
-                                      barrierDismissible: false,
-                                      builder: (_) => Center(
-                                        child: CircularProgressIndicator(
-                                          color: App_Colors.generalColor,
-                                        ),
-                                      ),
-                                    );
-
-                                    final supabase = Supabase.instance.client;
-                                    final List<String> uploadedUrls = [];
-
-                                    for (var file in result.files) {
-                                      final fileName =
-                                          "${provider.id}_${file.name}";
-                                      try {
-                                        await supabase.storage
-                                            .from('medical_files')
-                                            .uploadBinary(
-                                              fileName,
-                                              file.bytes!,
-                                              fileOptions: const FileOptions(
-                                                upsert: true,
-                                              ),
-                                            );
-                                        final publicUrl = supabase.storage
-                                            .from('medical_files')
-                                            .getPublicUrl(fileName);
-                                        uploadedUrls.add(publicUrl);
-                                      } catch (e) {
-                                        CustomSnackBar.showError(
-                                          context,
-                                          "Failed to upload ${file.name}: $e",
-                                        );
-                                      }
-                                    }
-
-                                    if (uploadedUrls.isNotEmpty) {
-                                      for (final url in uploadedUrls) {
-                                        await provider.addMedicalFile(
-                                          context,
-                                          url,
-                                        );
-                                      }
-                                    }
-                                    Navigator.of(context).pop();
-                                    CustomSnackBar.showSuccess(
-                                      context,
-                                      "Medical files uploaded successfully",
-                                    );
-                                  }
-                                },
+                                onPressed: () => provider.uploadMedicalFiles(context),
                                 icon: const Icon(Icons.upload_file),
                                 label: const Text("Upload Medical Files"),
                                 style: ElevatedButton.styleFrom(
