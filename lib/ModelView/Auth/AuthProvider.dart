@@ -2,6 +2,7 @@ import 'package:doctifityapp/Model/Repository/FireBaseFuncation/AuthFuncation.da
 import 'package:doctifityapp/View/AuthScreens/Sign_In_Screen.dart';
 import 'package:doctifityapp/View/CompleteAccount/CompleteAcountPage.dart';
 import 'package:doctifityapp/View/Intro_Screens/OnBoarding_Screens.dart';
+import 'package:doctifityapp/utills/AppRoutes.dart';
 import 'package:doctifityapp/utills/Erorrs_handling/Handeling_Erorrs.dart';
 import 'package:doctifityapp/utills/SnackBar.dart';
 import 'package:flutter/material.dart';
@@ -27,16 +28,12 @@ class AuthFunctionProvider extends ChangeNotifier {
           setLoading(false);
           CustomSnackBar.showSuccess(context, 'Account created successfully');
           sendEmailVer(context, user);
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (_) => CompleteAccountPage(
-                  rule: rule,
-                  name: user!.displayName!,
-                  email: user.email!,
-                  id: user.uid,
-                ),
-              ),
-            );
+            Navigator.pushReplacementNamed(context,AppRoutes.completeAccountScreen, arguments: {
+              'email': email,
+              'name': name,
+              'rule': rule,
+
+            }) ;
 
         } else {
           ErrorHandler.handleAuthError(context, 'Pls Select Rule');
@@ -53,7 +50,9 @@ class AuthFunctionProvider extends ChangeNotifier {
     response.fold(
       (user) {
         if (user!.emailVerified) {
-        Navigator.pushReplacementNamed(context, '/home') ;
+        Navigator.pushReplacementNamed(context,AppRoutes.homeScreen, arguments: {
+          'id': user.uid,
+        },) ;
         } else {
           CustomSnackBar.showError(context, 'Please verify your email');
           sendEmailVer(context, user);

@@ -1,3 +1,4 @@
+import 'package:doctifityapp/ModelView/HomePageProvider/HomePageProvider.dart';
 import 'package:doctifityapp/View/screens/details_Screens/details.dart';
 import 'package:doctifityapp/View/screens/details_Screens/more_doctors.dart';
 import 'package:doctifityapp/View/screens/details_Screens/more_hospitals.dart';
@@ -16,21 +17,23 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final vm = context.watch<HomeViewModel>();
+    final vm = Provider.of<HomePageProvider>(context) ;
+    final user = vm.user;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
         title: Consumer<HomeViewModel>(
           builder: (context, value, child) {
-            final user = vm.users.first;
+
             return
             // user checking
-            user == null
+            vm.user == null
                 ? const Text("Loading...")
                 : Row(
                     children: [
-                      CircleAvatar(backgroundImage: AssetImage(user.imageUrl)),
+                      user.imageUrl == null ? CircleAvatar(backgroundImage: AssetImage(user.gender == 'male' ? ImagePath.male : ImagePath.female)):
+                      CircleAvatar(backgroundImage: NetworkImage(user.imageUrl!)),
                       const SizedBox(width: 10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            user.address,
+                            user.email,
 
                             style: const TextStyle(
                               color: Colors.grey,
@@ -140,13 +143,13 @@ class HomeScreen extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) => Information(
                             name: doctor.name,
-                            image: doctor.imageUrl,
+                            image: doctor.imageUrl!,
                             active: true,
                             role: "doctor",
-                            address: doctor.address,
+                            address: doctor.clinic_address,
                             email: doctor.email,
-                            phone: doctor.phone,
-                            specialty: doctor.specialty,
+                            phone: doctor.clinic_nunmber,
+                            specialty: doctor.specialization,
                           ),
                         ),
                       );
@@ -158,7 +161,7 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             radius: 35,
-                            backgroundImage: AssetImage(doctor.imageUrl),
+                            backgroundImage: AssetImage(doctor.imageUrl!),
                           ),
                           SizedBox(height: 5),
                           Text(
@@ -166,7 +169,7 @@ class HomeScreen extends StatelessWidget {
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            doctor.specialty,
+                            doctor.specialization,
                             style: TextStyle(color: Colors.grey, fontSize: 12),
                           ),
                         ],
@@ -234,6 +237,7 @@ class HomeScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final hospital = vm.hospitals[index];
                   return Card(
+                    color: Colors.white,
                     margin: EdgeInsets.only(bottom: 10),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -244,12 +248,15 @@ class HomeScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // hospital image
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            elevation: 5,
                             child: Image.asset(
                               hospital.imageUrl,
-                              width: 60,
-                              height: 60,
+                              width: 80,
+                              height: 80,
                               fit: BoxFit.cover,
                             ),
                           ),

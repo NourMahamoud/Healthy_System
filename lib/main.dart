@@ -1,18 +1,15 @@
 import 'package:doctifityapp/ModelView/Auth/AuthProvider.dart';
-import 'package:doctifityapp/View/HomePageScreens/Home_page_screen.dart';
-import 'package:doctifityapp/View/Intro_Screens/OnBoarding_Screens.dart';
-import 'package:doctifityapp/View/Intro_Screens/Splash_Screen.dart';
+import 'package:doctifityapp/ModelView/HomePageProvider/HomePageProvider.dart';
+
 import 'package:doctifityapp/utills/Themes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 import 'view_model/home_view_model.dart';
 import 'view_model/navigation_view_model.dart';
-import 'package:doctifityapp/View/AuthScreens/Sign_In_Screen.dart';
-import 'package:doctifityapp/View/AuthScreens/Sign_up_Screen.dart';
 
+import 'package:doctifityapp/utills/AppRoutes.dart';
 
 
 void main() {
@@ -30,6 +27,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => HomeViewModel()),
         ChangeNotifierProvider(create: (_) => NavigationViewModel()),
         ChangeNotifierProvider(create: (_) => AuthFunctionProvider()),
+        ChangeNotifierProvider(create: (_)=> HomePageProvider('999')),
       ],
       child: const MyApp()));
 }
@@ -48,16 +46,12 @@ class _MyAppState extends State<MyApp> {
       themeMode: ThemeMode.light,
       theme: AppThemes().lightTheme,
       darkTheme: AppThemes().darkTheme,
-      home: SplashScreen(),
-      routes: {
+      initialRoute: AppRoutes.splashScreen,
+      onGenerateRoute: AppRoutes.generateRoute,
 
-        '/signup': (context) => SignUpScreen(),
-        '/login' : (context) => LoginPage() ,
-        // '/signup': (context) => SignUpScreen(),
-        '/home': (context) => HomePageScreen(),
-         '/onboarding': (context) => OnBoardingScreen(),
-      },
+
 
     );
   }
 }
+

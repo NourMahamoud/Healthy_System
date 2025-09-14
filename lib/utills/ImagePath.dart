@@ -7,4 +7,8 @@ class ImagePath {
   static const String onBoarding2 = 'assets/images/OnBoarding2.png';
   static const String onBoarding3 = 'assets/images/OnBoarding3.png';
   static const String hospitalBuilding = 'assets/images/hospital_building.jpg';
+  static const String male = 'assets/images/person.jpg';
+  static const String female = 'assets/images/female.jpg';
+
+
 }

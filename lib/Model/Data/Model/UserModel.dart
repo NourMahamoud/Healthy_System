@@ -12,8 +12,9 @@ class User {
  final String gender;
  final String emergencyContact;
  final List<HealthRecord> healthHistory;
+ final  String ?  imageUrl ;
 
- User( {
+ User(this.imageUrl,  {
   required this.name,
   required this.email,
   required this.phoneNumber,
@@ -37,20 +38,22 @@ class User {
   'emergencyContact': emergencyContact,
   'healthHistory': healthHistory.map((h) => h.toJson()).toList(),
   'id': id,
+  'imageUrl': imageUrl,
  };
 
- factory User.fromJson(List <Map<String, dynamic>> json) => User(
-  name: json.first['name'],
-  email: json.first['email'],
-  phoneNumber: json.first['phoneNumber'],
-  nationalId: json.first['nationalId'],
-  age: json.first['age'],
-  gender: json.first['gender'],
-  role: json.first['role'],
-  id: json.first['id'],
-  emergencyContact: json.first['emergencyContact'],
-  healthHistory: (json.first['healthHistory'] )
+ factory User.fromJson( Map<String, dynamic> json) => User(
+  name: json['name'],
+  email: json['email'],
+  phoneNumber: json['phoneNumber'],
+  nationalId: json['nationalId'],
+  age: json['age'],
+  gender: json['gender'],
+  role: json['role'],
+  id: json['id'],
+  emergencyContact: json['emergencyContact'],
+  healthHistory: (json['healthHistory'] )
       .map((e) => HealthRecord.fromJson(e))
       .toList(),
+json['imageUrl'],
  );
 }

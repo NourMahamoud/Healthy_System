@@ -8,6 +8,7 @@ class Doctor extends User {
     this.specialization,
     this.clinic_address,
     this.clinic_nunmber,
+      super.imageUrl ,
   {
     required super.age ,
     required super.name,
@@ -35,12 +36,15 @@ class Doctor extends User {
       'gender':super. gender,
       'role': super.role,
       'emergencyContact': super.emergencyContact,
+      'id': super.id,
+      'imageUrl': super.imageUrl,
       'healthHistory': healthHistory.map((h) => h.toJson()).toList(),
 
      } ;
   }
   factory Doctor.fromJson(Map<String, dynamic> json) {
     return Doctor(
+      json  ['imageUrl'],
       json['specialization'],
       json['clinic_address'],
       json['clinic_nunmber'],
@@ -53,7 +57,8 @@ class Doctor extends User {
       healthHistory: json['healthHistory'],
       role: json['role'],
       id: json['id'],
-      emergencyContact: json['emergencyContact'] ) ;
+      emergencyContact: json['emergencyContact'] )
+    ;
 
 
   }

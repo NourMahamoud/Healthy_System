@@ -203,6 +203,7 @@ class CompleteAccountProvider extends ChangeNotifier {
       if (rule == 'Doctor') {
         // Create Doctor model
         Doctor doctor = Doctor(
+          '',
           specialization.text,
           clinicAddress.text,
           clinicNumber.text,
@@ -222,6 +223,7 @@ class CompleteAccountProvider extends ChangeNotifier {
       } else if (rule == 'Patient') {
         // Create Patient (User) model
         User user = User(
+          'null',
           role: rule,
           age: int.parse(age.text),
           emergencyContact: emergencyPhoneNumber.text,
