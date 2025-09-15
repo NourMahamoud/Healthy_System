@@ -1,5 +1,6 @@
 import 'package:doctifityapp/ModelView/Auth/AuthProvider.dart';
 import 'package:doctifityapp/ModelView/HomePageProvider/HomePageProvider.dart';
+import 'package:doctifityapp/View/hospital_screens/hospital_account.dart';
 
 import 'package:doctifityapp/utills/Themes.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -45,9 +46,10 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
       theme: AppThemes.lightTheme,
-      darkTheme: AppThemes.darkTheme,
-      initialRoute: AppRoutes.splashScreen,
-      onGenerateRoute: AppRoutes.generateRoute,
+      // darkTheme: AppThemes.darkTheme,
+      // initialRoute: AppRoutes.splashScreen,
+      // onGenerateRoute: AppRoutes.generateRoute,
+      home:HospitalDashboardScreen() ,
 
 
 

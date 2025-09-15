@@ -113,7 +113,7 @@ class _MoreDoctorsState extends State<DoctorsScreen> {
                             image: doctor.imageUrl,
                             name: doctor.name,
                             specialty: doctor.specialty,
-                            onAdd: () {},
+                            onAdd: () {}, 
                           ),
                         ),
                       );
