@@ -204,9 +204,7 @@ class SignUp extends StatelessWidget {
 
                 Center(
                   child: MaterialButton(
-                    onPressed: auth.isLoading
-                        ? null
-                        : () async {
+                    onPressed:  () async {
                             if (_formKey.currentState!.validate() &&
                                 auth.rule != '') {
                               auth.signUp(

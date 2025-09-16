@@ -4,6 +4,7 @@ import 'package:doctifityapp/utills/CostoumWegiet/CoustumeChioce.dart';
 import 'package:doctifityapp/utills/CostoumWegiet/CustomTextFormField.dart';
 import 'package:doctifityapp/utills/ScreenSize.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:provider/provider.dart';
 
@@ -292,7 +293,7 @@ class CompleteacountPage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Allergies',
+                          'disease',
                           style: Theme.of(context).textTheme.displayLarge,
                         ),
                         SizedBox(
@@ -300,14 +301,14 @@ class CompleteacountPage extends StatelessWidget {
                           child: Wrap(
                             spacing: 8,
                             runSpacing: 8,
-                            children: List.generate(provider.allergies.length, (index) {
+                            children: List.generate(provider.healthRecords.length, (index) {
                               return Chip(
                                 label: Text(
-                                  provider.allergies[index],
+                                  provider.healthRecords[index].condition,
                                   style: Theme.of(context).textTheme.labelSmall,
                                 ),
                                 deleteIcon: const Icon(Icons.close, size: 16),
-                                onDeleted: () => provider.removeAllergy(index),
+                                onDeleted: () => provider.removeHealthRecord(index),
                                 backgroundColor: App_Colors.offWhite,
                               );
                             }),
@@ -318,10 +319,10 @@ class CompleteacountPage extends StatelessWidget {
                           width: screenWidth * 0.6,
                           child: ElevatedButton.icon(
                             onPressed: () {
-                              provider.addAllergy(context);
+                              provider.addHealthRecord(context);
                             },
-                            icon: const Icon(Icons.access_time, size: 18),
-                            label: const Text('Add Allergy'),
+                            icon: const Icon(FontAwesomeIcons.notesMedical, size: 18),
+                            label: const Text('Add Your disease'),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue[50],
                               foregroundColor: Colors.blue[700],
@@ -332,30 +333,56 @@ class CompleteacountPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        ChooseAndWrite(question: 'you do any surgery before ?', value: provider.doSurgery, onChanged: (val){
-                          val ? provider.addHealthRecord(context) : null ;
-                          provider.doSurgery =!provider.doSurgery ;
+                        Text(
+                          'Medicine',
+                          style: Theme.of(context).textTheme.displayLarge,
+                        ),
+                        SizedBox(
+                          width: screenWidth * 0.8,
+                          child: Wrap(
+                            spacing: 8,
+                            runSpacing: 8,
+                            children: List.generate(provider.medicineList.length, (index) {
+                              return Chip(
+                                label: Text(
+                                  provider.medicineList[index]['medicine'],
+                                  style: Theme.of(context).textTheme.labelSmall,
+                                ),
+                                deleteIcon: const Icon(Icons.close, size: 16),
+                                onDeleted: () => provider.removeMedicine(index),
+                                backgroundColor: App_Colors.offWhite,
+                              );
+                            }),
+                          ),
+                        ),
+                        SizedBox(height: screenHeight * 0.02),
+                        SizedBox(
+                          width: screenWidth * 0.6,
+                          child: ElevatedButton.icon(
+                            onPressed: () {
+                              provider.addMedicine(context ) ;
+                            },
+                            icon: const Icon(FontAwesomeIcons.notesMedical, size: 18),
+                            label: const Text('Add Your Medications'),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue[50],
+                              foregroundColor: Colors.blue[700],
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
+                          ),
+                        ),
+                        ChooseAndWrite(question: 'Are you drink Alchole ?', value: provider.alchol, onChanged: (val){
+                          provider.alachol =!provider.alchol ;
                         }) ,
-                        ChooseAndWrite(question: 'You have any chronic disease', value: provider.haveChronicDisease, onChanged: (val){
-                          val ? provider.addHealthRecord(context) : null ;
-                          provider.haveChronicDisease =!provider.haveChronicDisease ;
-                        }) ,
-                        ChooseAndWrite(question: 'Have you been admitted to a hospital before?', value: provider.AdmittedBefore, onChanged: (val){
-                          val ? provider.addHealthRecord(context) : null ;
-                            provider.AdmittedBefore=!provider.AdmittedBefore ;
-                        })  ,
-                        ChooseAndWrite(question: 'Have you had a blood transfusion before?', value: provider.BloodTransBefore, onChanged: (val){
-                          val ? provider.addHealthRecord(context) : null ;
-                          provider.BloodTransBefore=!provider.BloodTransBefore ;
-                        }),
-                        ChooseAndWrite(question: 'Do you have hepatitis C or B virus?', value: provider.haveVirus, onChanged: (val){
-                          val ? provider.addHealthRecord(context) : null ;
-                          provider.haveVirus=!provider.haveVirus ;
-                        }),
+
                         ChooseAndWrite(question: 'you Smoker?', value: provider.smoke, onChanged: (val){
                           val ? provider.addHealthRecord(context) : null ;
                           provider.smoke=!provider.smoke ;
                         }),
+
                       ],
                     ),
                   ),

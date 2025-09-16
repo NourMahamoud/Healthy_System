@@ -1,26 +1,31 @@
 import 'package:doctifityapp/View/HomePageScreens/Appointments_screen.dart';
-import 'package:doctifityapp/View/HomePageScreens/Home_screen.dart' ;
-import 'package:doctifityapp/View/HomePageScreens/MyAccount_screen.dart';
 import 'package:doctifityapp/View/HomePageScreens/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:doctifityapp/View/HomePageScreens/home_screen.dart';
+import 'package:doctifityapp/ModelView/HomePageProvider/LogicProviderHomeScreen.dart';
 
-import '../../view_model/navigation_view_model.dart' show NavigationViewModel;
+class HomePageScreenProviderBuilder extends StatelessWidget {
+   HomePageScreenProviderBuilder({super.key, required this.id});
+  final String id ;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(create: (_)=> LogicProviderHomeScreen(id: id,context: context),
+      child: HomePageScreen(),);
+
+
+
+  }
+}
 
 class HomePageScreen extends StatelessWidget {
   HomePageScreen({super.key});
 
-  final List<Widget> _screens =  [
-
-    Appointments(),
-    NotificationScreen(),
-    MyAccountScreen(),
-  ];
 
   @override
   Widget build(BuildContext context) {
-    final vm = context.watch<NavigationViewModel>();
+    final vm = context.watch<LogicProviderHomeScreen>();
 
     return Scaffold(
       body: AnimatedSwitcher(
@@ -49,19 +54,7 @@ class HomePageScreen extends StatelessWidget {
             ),
           );
         },
-        child: Container(
-          child: PageView(
-            physics: const NeverScrollableScrollPhysics(),
-            children: [
-              
-              Appointments(),
-              NotificationScreen(),
-              MyAccountScreen(),
-            ],
-
-            controller: PageController(initialPage: vm.currentIndex),
-          ),
-        ),
+        child:vm.getChangeScreens() ,
       ),
 
       bottomNavigationBar: BottomNavigationBar(
@@ -76,11 +69,11 @@ class HomePageScreen extends StatelessWidget {
           BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: "Home"),
           BottomNavigationBarItem(
             icon: Icon(Icons.bed_outlined),
-            label: "Appointments",
+            label: "Doctors",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.notifications),
-            label: "Notifications",
+            label: "Hospitals",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

@@ -23,7 +23,7 @@ class AppRoutes {
       case homeScreen:
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (_) => HomePageScreen(),
+          builder: (_) => HomePageScreenProviderBuilder( id: args['id'],),
         );
 
       case loginScreen:

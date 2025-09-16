@@ -1,26 +1,18 @@
+import 'package:doctifityapp/Model/Data/Model/DoctorModel.dart';
+import 'package:doctifityapp/utills/ColorCodes.dart';
+import 'package:doctifityapp/utills/ImagePath.dart';
 import 'package:flutter/material.dart';
 
 class DoctorCard extends StatelessWidget {
-  const DoctorCard({
-    super.key,
-    required this.image,
-    required this.name,
-    required this.specialty,
-    this.onAdd,
-    this.showAdd = true,
-  });
-
-  final String image;
-  final String name;
-  final String specialty;
-  final VoidCallback? onAdd;
-  final bool showAdd;
+  const DoctorCard( this.doctor,);
+  final Doctor doctor ;
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Card(
+      color: App_Colors.offWhite,
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
@@ -30,7 +22,7 @@ class DoctorCard extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.asset(
-                image,
+                doctor.gender == 'Male' ? ImagePath.male : ImagePath.female,
                 width: screenWidth * 0.15,
                 height: screenWidth * 0.15,
                 fit: BoxFit.cover,
@@ -43,14 +35,28 @@ class DoctorCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    name,
+                    doctor.name,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: screenWidth * 0.05,
                     ),
                   ),
                   Text(
-                    specialty,
+                    doctor.specialization,
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: screenWidth * 0.04,
+                    ),
+                  ),
+                  Text(
+                    doctor.clinic_nunmber,
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: screenWidth * 0.04,
+                    ),
+                  ),
+                  Text(
+                    doctor.clinic_address,
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: screenWidth * 0.04,
@@ -60,14 +66,6 @@ class DoctorCard extends StatelessWidget {
               ),
             ),
 
-            IconButton(
-              icon: Icon(
-                Icons.add_circle,
-                color: Colors.blue,
-                size: screenWidth * 0.09,
-              ),
-              onPressed: onAdd ?? () {},
-            ),
           ],
         ),
       ),

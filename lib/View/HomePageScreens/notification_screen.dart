@@ -1,5 +1,4 @@
 import 'package:doctifityapp/View/widgets/more_app_bar.dart';
-import 'package:doctifityapp/view_model/navigation_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -110,7 +109,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
     if (isEmpty) {
       Future.delayed(const Duration(milliseconds: 300), () {
-        context.read<NavigationViewModel>().setIndex(0);
+        //context.read<NavigationViewModel>().setIndex(0);
       });
     }
   }

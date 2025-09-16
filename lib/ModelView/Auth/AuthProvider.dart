@@ -20,18 +20,17 @@ class AuthFunctionProvider extends ChangeNotifier {
   String rule = '';
 
   void signUp(String email, String password, String name, context) async {
-    setLoading(true);
     final response = await AuthFunction().signUp(email, password, name);
     response.fold(
       (user) {
         if (rule != '') {
-          setLoading(false);
           CustomSnackBar.showSuccess(context, 'Account created successfully');
           sendEmailVer(context, user);
             Navigator.pushReplacementNamed(context,AppRoutes.completeAccountScreen, arguments: {
               'email': email,
               'name': name,
               'rule': rule,
+              'id': user!.uid,
 
             }) ;
 
@@ -84,7 +83,7 @@ class AuthFunctionProvider extends ChangeNotifier {
         context,
       ).pushReplacement(MaterialPageRoute(builder: (_) => LoginPage()));
     } else {
-      ErrorHandler.handleAuthError(context, response as String);
+      ErrorHandler.handleAuthError(context, response.toString() );
     }
   }
 

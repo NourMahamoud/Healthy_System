@@ -6,30 +6,15 @@ import 'package:provider/provider.dart';
 import '../../Model/Data/Model/HealthRecorde.dart';
 import '../../ModelView/CompleteAcountProvider/HelperProviders/Custom_dialog_addDiseaseProider.dart';
 
-class CustomDialogAddDisease extends StatelessWidget {
-   CustomDialogAddDisease({super.key, required this.conditionController, required this.diagnosisDateController, required this.treatmentController, required this.status, required this.notesController, required this.addHealthRecord});
+class CustomMedicineDailogadd extends StatelessWidget {
+  CustomMedicineDailogadd({super.key, required this.medicine, required this.dosage, required this.addMedications,});
 
-final TextEditingController conditionController ;
-final TextEditingController diagnosisDateController ;
-final TextEditingController treatmentController ;
-final SearchController status ;
-final TextEditingController notesController ;
-   final VoidCallback addHealthRecord;
-  DateTime _diagnosisDate = DateTime.now();
+  final TextEditingController medicine ;
+  final TextEditingController dosage ;
+  final VoidCallback addMedications;
 
-void _dataPicker (context)async{
-  final DateTime? pickedDate = await showDatePicker(
-    context: context,
-    initialDate: DateTime.now(),
-    firstDate: DateTime(1900),
-    lastDate: DateTime.now(),
 
-  );
-  if (pickedDate != null) {
-    _diagnosisDate = pickedDate;
-    diagnosisDateController.text = '${_diagnosisDate.day}/${_diagnosisDate.month}/${_diagnosisDate.year}';
-  }
-}
+
 
   @override
   Widget build(BuildContext context) {
@@ -86,14 +71,14 @@ void _dataPicker (context)async{
                 spacing: 10,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Condition'),
+                  Text('Medicine'),
                   SizedBox(height: 5),
                   TextField(
-                    controller: conditionController,
+                    controller:medicine ,
                     onTapOutside: (event) =>
                         FocusScope.of(context).unfocus(),
                     decoration: InputDecoration(
-                      labelText: 'Condition',
+                      labelText: 'Medicine',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide(
@@ -104,33 +89,15 @@ void _dataPicker (context)async{
                     ),
 
                   ),
-                  Text('Diagnosis Date'),
+
+
+                  Text('Dosage'),
                   TextField(
-                    controller: diagnosisDateController,
-                    onTapOutside: (event) =>
-                        FocusScope.of(context).unfocus(),
-                    onTap: (){
-                      _dataPicker(context);
-
-                    },
-
-
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.calendar_today, color: Colors.blue), // Diagnosis Date
-                      labelText: 'Diagnosis Date',
-                      hintText: 'mm/dd/yyyy',
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                    ),
-
-                  ),
-
-                  Text('Treatment'),
-                  TextField(
-                    controller: treatmentController,
+                    controller: dosage,
                     onTapOutside: (event) =>
                         FocusScope.of(context).unfocus(),
                     decoration: InputDecoration(
-                      labelText: 'Treatment',
+                      labelText: 'dosage',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide(
@@ -141,54 +108,7 @@ void _dataPicker (context)async{
                     ),
 
                   ),
-                  SizedBox(height: 15),
-                  Text('Status'),
-                  SizedBox(height: 5),
-                  SearchAnchor(
-                     searchController: status,
-                    viewLeading: FaIcon(FontAwesomeIcons.heartbeat),
-                    viewBackgroundColor: Colors.white,
 
-                      viewHintText: 'Status',
-                      builder: (BuildContext context, SearchController controller){
-                    return SearchBar(
-                      shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(20), side: BorderSide(color: Colors.black,width: 1))),
-                      backgroundColor: WidgetStatePropertyAll(App_Colors.offWhite),
-                      onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                      elevation: WidgetStatePropertyAll(0),
-                      controller: controller,
-                      leading:FaIcon(FontAwesomeIcons.heartbeat),
-                      onTap: (){
-                        controller.openView();
-                      },
-                      hintText: 'Status',
-                    ) ;
-
-                  }, suggestionsBuilder: (BuildContext context, SearchController controller){
-                    return ['active', 'Treatment', 'chronic','Allergies'].map((s)=>ListTile(title: Text(s),onTap: (){
-                      controller.closeView(s);
-                    },)).toList() ;
-
-                  }) ,
-                  SizedBox(height: 15),
-                  Text('Notes (optional)'),
-                  SizedBox(height: 5),
-                  TextField(
-                    controller: notesController,
-                    onTapOutside: (event) =>
-                        FocusScope.of(context).unfocus(),
-                    maxLines: 4,
-                    decoration: InputDecoration(
-                      labelText: 'Notes',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide(
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-
-                  ),
                   SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -202,10 +122,10 @@ void _dataPicker (context)async{
                       SizedBox(width: 10),
                       TextButton(
                         onPressed: () async{
-                              addHealthRecord();
-                             Navigator.of(context).pop();
+                          addMedications();
+                          Navigator.of(context).pop();
 
-                          } ,
+                        } ,
 
                         child: const Text(
                           'Save',

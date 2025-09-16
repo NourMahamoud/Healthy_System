@@ -9,7 +9,7 @@ class SignUpProvider extends  ChangeNotifier {
   bool isObscurePassword= true;
   bool isObscureConfirmpassword= true;
   bool val = false ;
-  List <String> roles = ['Doctor' , 'Hospital' , 'Patient'] ;
+  List <String> roles = ['Doctor','Patient'] ;
 
 
   SignUpProvider(){

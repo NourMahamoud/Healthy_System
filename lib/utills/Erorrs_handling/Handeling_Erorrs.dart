@@ -49,5 +49,40 @@ class ErrorHandler {
     }
 
   }
+  static void handleSupabaseStorageError(BuildContext context, String errorCode) {
+    final message = _getSupabaseStorageErrorMessage(errorCode);
+    _logger.e('Supabase Storage Error: $errorCode - $message');
+    CustomSnackBar.showError(context, message);
+  }
+
+  static String _getSupabaseStorageErrorMessage(String errorCode) {
+    switch (errorCode) {
+      case 'storage/object-not-found':
+        return 'The requested file does not exist.';
+      case 'storage/unauthorized':
+        return 'You don\'t have permission to access this file.';
+      case 'storage/forbidden':
+        return 'Access to this file is forbidden.';
+      case 'storage/too-large':
+        return 'The file is too large to upload.';
+      case 'storage/invalid-format':
+        return 'The file format is not supported.';
+      case 'storage/bucket-not-found':
+        return 'The storage bucket was not found.';
+      case 'storage/network-error':
+        return 'A network error occurred while accessing storage.';
+      case 'storage/retry-limit-exceeded':
+        return 'The operation failed after multiple attempts. Please try again.';
+      case 'storage/invalid-credentials':
+        return 'Invalid storage credentials. Please contact support.';
+      case 'storage/operation-aborted':
+        return 'The storage operation was cancelled.';
+      case 'storage/quota-exceeded':
+        return 'Storage quota has been exceeded. Please free up space.';
+      default:
+        return 'An unexpected storage error occurred: $errorCode';
+    }
+  }
+
 
 }

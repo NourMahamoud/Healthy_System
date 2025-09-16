@@ -81,5 +81,15 @@ class AuthFunction {
       return e.toString() ;
     }
 }
+  Future <String> deleteAccount() async {
+    try{
+      await FirebaseAuth.instance.currentUser!.delete();
+
+      return 'done' ;
+      }catch (e){
+      return e.toString() ;
+    }
+  }
+
 
 }

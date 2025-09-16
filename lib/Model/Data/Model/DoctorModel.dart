@@ -1,6 +1,7 @@
+import 'package:doctifityapp/Model/Data/Model/HealthRecorde.dart';
 import 'package:doctifityapp/Model/Data/Model/UserModel.dart';
 
-class Doctor extends User {
+class Doctor extends UserModel {
   final String specialization;
   final String clinic_address;
   final String clinic_nunmber;
@@ -9,8 +10,11 @@ class Doctor extends User {
     this.clinic_address,
     this.clinic_nunmber,
       super.imageUrl ,
+
+
   {
-    required super.age ,
+    required super.age,
+    required super.medecineList,
     required super.name,
     required super.email,
     required super.phoneNumber,
@@ -20,6 +24,9 @@ class Doctor extends User {
     required super.role,
     required super.id,
     required super.emergencyContact,
+    required super.smoker,
+    required super.alcohol,
+    required super.bloodType,
 
   }
   );
@@ -39,12 +46,17 @@ class Doctor extends User {
       'id': super.id,
       'imageUrl': super.imageUrl,
       'healthHistory': healthHistory.map((h) => h.toJson()).toList(),
+      'smoker': super.smoker,
+      'alcohol': super.alcohol,
+      'bloodType': super.bloodType,
+      'medecineList': super.medecineList,
 
      } ;
   }
   factory Doctor.fromJson(Map<String, dynamic> json) {
     return Doctor(
       json  ['imageUrl'],
+
       json['specialization'],
       json['clinic_address'],
       json['clinic_nunmber'],
@@ -54,10 +66,17 @@ class Doctor extends User {
       phoneNumber: json['phoneNumber'],
       nationalId: json['nationalId'],
       gender: json['gender'],
-      healthHistory: json['healthHistory'],
+      healthHistory: (json['healthHistory'] as List<dynamic>)
+          .map((e) => HealthRecord.fromJson(e as Map<String, dynamic>))
+          .toList()
+          .cast<HealthRecord>(),
       role: json['role'],
       id: json['id'],
-      emergencyContact: json['emergencyContact'] )
+      emergencyContact: json['emergencyContact'] ,
+      smoker: json['smoker'],
+      alcohol: json['alcohol'],
+      bloodType: json['bloodType'], medecineList: json['medecineList'],
+    )
     ;
 
 
